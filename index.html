@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="RIKOSTRUZIONI">
+<meta name="application-name" content="RIKOSTRUZIONI">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="description" content="Gestione cantieri RIKOSTRUZIONI SRL">
+<link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22RIKOSTRUZIONI%20SRL%22%2C%22short_name%22%3A%22RIKO%22%2C%22description%22%3A%22Gestione%20cantieri%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230a0a0a%22%2C%22theme_color%22%3A%22%23e85d2f%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjM4IiBmaWxsPSIjZTg1ZDJmIi8%2BPHRleHQgeD0iOTYiIHk9IjEyOCIgZm9udC1zaXplPSI5NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiPvCfjJc8L3RleHQ%2BPC9zdmc%2B%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%2C%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMiIgZmlsbD0iI2U4NWQyZiIvPjx0ZXh0IHg9IjI1NiIgeT0iMzQwIiBmb250LXNpemU9IjI1NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiPvCfjJc8L3RleHQ%2BPC9zdmc%2B%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
+<!-- Apple touch icons -->
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxODAgMTgwIj48cmVjdCB3aWR0aD0iMTgwIiBoZWlnaHQ9IjE4MCIgcng9IjM0IiBmaWxsPSIjZTg1ZDJmIi8+PHRleHQgeD0iOTAiIHk9IjEyMCIgZm9udC1zaXplPSI5MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0id2hpdGUiPvCfjJc8L3RleHQ+PC9zdmc+">
+<title>RIKOSTRUZIONI SRL</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.js"></script>
+<style>
+:root{
+  --bg:#0a0a0a;--bg2:#111;--bg3:#161616;--bg4:#1e1e1e;
+  --border:#222;--border2:#2a2a2a;
+  --text:#f0f0f0;--text2:#999;--text3:#555;--text4:#333;
+  --accent:#e85d2f;--accent2:#f5a623;
+  --green:#4ade80;--blue:#60a5fa;--red:#f87171;--yellow:#facc15;--purple:#a78bfa;
+  --r:14px;--rs:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:16px}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* ── BOTTOM NAV ── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.bn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 4px;border:none;background:transparent;cursor:pointer;font-family:'DM Sans';transition:all 0.15s;position:relative}
+.bn-icon{font-size:22px;line-height:1}
+.bn-label{font-size:10px;font-weight:500;color:var(--text3);white-space:nowrap}
+.bn-item.active .bn-label{color:var(--accent)}
+.bn-badge{position:absolute;top:6px;right:calc(50% - 18px);background:var(--red);color:#fff;border-radius:10px;font-size:9px;font-weight:700;padding:1px 5px;min-width:16px;text-align:center;display:none}
+
+/* ── PAGES ── */
+.page{display:none;min-height:calc(100vh - 120px);padding-bottom:80px}
+.page.active{display:block}
+
+/* ── PAGE HEADER ── */
+.phdr{background:var(--bg2);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.phdr-left{display:flex;align-items:center;gap:12px}
+.phdr-logo{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.phdr-kpi{display:flex;gap:14px}
+.pk{text-align:right}
+.pk-v{font-size:15px;font-weight:700;line-height:1}
+.pk-l{font-size:10px;color:var(--text3);margin-top:2px}
+
+/* ── SUB TABS ── */
+.stw{background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.stw::-webkit-scrollbar{display:none}
+.stabs{display:flex;padding:0 12px;min-width:max-content}
+.stab{padding:12px 14px;border:none;background:transparent;cursor:pointer;font-family:'DM Sans';font-size:13px;font-weight:500;color:var(--text3);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.15s;white-space:nowrap}
+.stab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.stab-wrap{position:relative;display:inline-block}
+.stab-badge{position:absolute;top:-2px;right:-2px;background:var(--red);color:#fff;border-radius:10px;font-size:9px;font-weight:700;padding:1px 5px;min-width:14px;text-align:center;display:none}
+
+/* ── CONTENT ── */
+.cnt{padding:16px;max-width:600px;margin:0 auto}
+.spanel{display:none}.spanel.active{display:block}
+
+/* ── SHARED COMPONENTS ── */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.ct{font-size:12px;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+.fl{font-size:12px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;display:block;margin-bottom:7px;margin-top:14px}
+.fl:first-child{margin-top:0}
+.fi{width:100%;padding:14px 16px;background:var(--bg);border:1.5px solid var(--border2);border-radius:var(--rs);color:var(--text);font-size:16px;font-family:'DM Sans';outline:none;transition:border-color 0.15s;margin-bottom:0}
+.fi:focus{border-color:var(--accent)}
+select.fi option{background:var(--bg2)}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{width:100%;padding:16px;border:none;border-radius:var(--rs);background:linear-gradient(135deg,var(--accent),#c94d24);color:#fff;font-size:16px;font-weight:700;font-family:'DM Sans';cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.15s;margin-top:14px}
+.btn:active{filter:brightness(0.9)}
+.btn:disabled{background:var(--bg4);color:var(--text3);cursor:not-allowed}
+.btn-row{display:flex;gap:8px;margin-bottom:12px}
+.bts{padding:12px 14px;border:1px solid var(--border);border-radius:var(--rs);background:var(--bg2);color:var(--text2);font-size:13px;font-family:'DM Sans';font-weight:500;cursor:pointer;white-space:nowrap}
+.bts-g{color:var(--green);border-color:rgba(74,222,128,0.3)}
+.bts-b{color:var(--blue);border-color:rgba(96,165,250,0.3)}
+.info{padding:12px 16px;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);font-size:14px;color:var(--text3);line-height:1.6;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.chip{padding:4px 10px;border-radius:20px;font-size:12px;font-weight:600}
+.c-r{background:rgba(232,93,47,0.12);color:var(--accent)}
+.c-g{background:rgba(74,222,128,0.1);color:var(--green);font-family:'DM Mono'}
+.c-b{background:rgba(96,165,250,0.1);color:var(--blue)}
+.c-gray{background:var(--bg4);color:var(--text2)}
+.c-y{background:rgba(250,204,21,0.1);color:var(--yellow)}
+.log{display:none;margin-top:14px;background:#080808;border:1px solid var(--border);border-radius:var(--rs);padding:16px;font-family:'DM Mono';max-height:240px;overflow-y:auto}
+.ll{font-size:12px;margin-bottom:4px;line-height:1.5}
+.ls{color:var(--accent2)}.lk{color:var(--green)}.li{color:var(--text4)}
+.lt{color:var(--bg4);margin-right:8px}
+.type-row{display:flex;gap:8px;margin-bottom:14px}
+.tb{flex:1;padding:13px 10px;border:1.5px solid var(--border);border-radius:var(--rs);background:transparent;color:var(--text3);cursor:pointer;font-size:14px;font-family:'DM Sans';font-weight:500;transition:all 0.15s;text-align:center}
+.tb.active{border-color:var(--accent);background:rgba(232,93,47,0.1);color:var(--accent)}
+.success-banner{display:none;margin-top:12px;padding:14px;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.25);border-radius:var(--rs);color:var(--green);font-size:14px;font-weight:600;text-align:center}
+.empty{text-align:center;padding:40px 20px}
+.ei{font-size:40px;margin-bottom:10px}.et{font-size:14px;color:var(--text3)}.es{font-size:12px;color:var(--text4);margin-top:5px}
+.filter-row{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;margin-bottom:14px}
+.filter-row::-webkit-scrollbar{display:none}
+.filt{padding:8px 14px;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text3);font-size:13px;font-family:'DM Sans';font-weight:500;cursor:pointer;white-space:nowrap;transition:all 0.15s}
+.filt.active{border-color:var(--accent);background:rgba(232,93,47,0.1);color:var(--accent)}
+.kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.kpi-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:14px;text-align:center}
+.kpi-big{font-size:16px;font-weight:700;line-height:1;margin-bottom:5px}
+.kpi-lbl{font-size:11px;color:var(--text3)}
+.chart-wrap{position:relative;height:200px;margin-top:12px}
+.prog-item{margin-bottom:14px}
+.prog-head{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
+.prog-bar{height:7px;background:var(--bg4);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;transition:width 0.5s ease}
+.search-wrap{position:relative;margin-bottom:14px}
+.search-wrap input{width:100%;padding:13px 16px 13px 44px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-size:15px;font-family:'DM Sans';outline:none}
+.search-wrap input:focus{border-color:var(--accent)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;pointer-events:none}
+
+/* ── HOME DASHBOARD ── */
+.home-hero{background:linear-gradient(135deg,rgba(232,93,47,0.15),rgba(245,166,35,0.08));border:1px solid rgba(232,93,47,0.2);border-radius:var(--r);padding:20px;margin-bottom:20px}
+.home-hero-title{font-size:22px;font-weight:700;letter-spacing:-0.5px;margin-bottom:4px}
+.home-hero-sub{font-size:14px;color:var(--text3)}
+.home-kpi{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.home-kpi-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:16px;display:flex;align-items:center;gap:14px}
+.home-kpi-icon{font-size:28px;flex-shrink:0}
+.home-kpi-val{font-size:20px;font-weight:700;line-height:1}
+.home-kpi-label{font-size:11px;color:var(--text3);margin-top:3px}
+.module-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.mod-btn{border:1px solid var(--border);border-radius:var(--r);padding:18px 14px;background:var(--bg2);cursor:pointer;font-family:'DM Sans';text-align:left;transition:all 0.15s;display:flex;flex-direction:column;gap:8px}
+.mod-btn:active{border-color:var(--accent);background:rgba(232,93,47,0.06)}
+.mod-icon{font-size:28px}
+.mod-name{font-size:14px;font-weight:700;color:var(--text)}
+.mod-desc{font-size:12px;color:var(--text3);line-height:1.4}
+.home-activity{margin-bottom:20px}
+.activity-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.activity-item:last-child{border-bottom:none}
+.activity-icon{font-size:20px;flex-shrink:0}
+.activity-text{flex:1;font-size:13px;color:var(--text2)}
+.activity-time{font-size:11px;color:var(--text4);font-family:'DM Mono'}
+.alert-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer}
+.alert-pill-red{background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);color:var(--red)}
+.alert-pill-yellow{background:rgba(250,204,21,0.08);border:1px solid rgba(250,204,21,0.3);color:var(--yellow)}
+
+/* ── SPESE ── */
+.dz{border:2px dashed var(--border);border-radius:var(--r);padding:28px 20px;text-align:center;cursor:pointer;transition:all 0.2s;margin-bottom:14px}
+.dz.drag{border-color:var(--accent);background:rgba(232,93,47,0.04)}
+.voce-row{background:var(--bg3);border:1px solid var(--border);border-radius:var(--rs);padding:13px 15px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.voce-body{flex:1;min-width:0}
+.voce-main{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.voce-meta{font-size:11px;color:var(--text3);font-family:'DM Mono'}
+.voce-amount{text-align:right;flex-shrink:0}
+.voce-total{font-size:15px;font-weight:700;color:var(--accent)}
+.voce-iva{font-size:10px;color:var(--text4)}
+
+/* ── MATERIALI ── */
+.mat-row{background:var(--bg3);border:1px solid var(--border);border-radius:var(--rs);padding:13px 15px;margin-bottom:8px}
+.mat-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.mat-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:3px}
+.mat-cat{font-size:11px;color:var(--text3);margin-bottom:5px}
+.mat-detail{display:none;margin-top:10px;border-top:1px solid var(--border);padding-top:10px}
+.hist-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:var(--bg);border-radius:8px;font-size:12px;margin-bottom:5px}
+.hist-price{font-family:'DM Mono';font-weight:600;color:var(--text)}
+.hist-meta{color:var(--text3)}
+.hist-badge{padding:2px 8px;border-radius:12px;font-size:10px;font-weight:700}
+.hb-up{background:rgba(248,113,113,0.15);color:var(--red)}
+.hb-down{background:rgba(74,222,128,0.12);color:var(--green)}
+.hb-eq{background:var(--bg4);color:var(--text3)}
+
+/* ── ALERT ── */
+.alert-item{padding:14px;display:flex;align-items:flex-start;gap:12px;border-bottom:1px solid rgba(0,0,0,0.15)}
+.alert-item:last-child{border-bottom:none}
+.alert-item.critical{background:rgba(248,113,113,0.1);border-left:3px solid var(--red);border-radius:var(--rs);margin-bottom:8px}
+.alert-item.warning{background:rgba(250,204,21,0.07);border-left:3px solid var(--yellow);border-radius:var(--rs);margin-bottom:8px}
+.alert-icon{font-size:20px;flex-shrink:0}
+.alert-body{flex:1;min-width:0}
+.alert-title{font-size:14px;font-weight:700;margin-bottom:3px}
+.alert-title.critical{color:var(--red)}.alert-title.warning{color:var(--yellow)}
+.alert-desc{font-size:13px;color:var(--text3);line-height:1.5;margin-bottom:4px}
+.alert-meta{font-size:11px;color:var(--text4);font-family:'DM Mono'}
+
+/* ── FOTO ── */
+.cant-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:12px;cursor:pointer}
+.cant-thumb{width:100%;height:130px;object-fit:cover;display:block}
+.cant-thumb-ph{width:100%;height:130px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:36px;color:var(--text4)}
+.cant-body{padding:13px 15px}
+.tl-photos{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.tl-photo{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;cursor:pointer;background:var(--bg3)}
+.tl-photo img{width:100%;height:100%;object-fit:cover}
+.tl-num{position:absolute;bottom:4px;right:4px;background:rgba(0,0,0,0.6);border-radius:8px;padding:2px 6px;font-size:9px;color:#fff;font-weight:700;font-family:'DM Mono'}
+.tl-gps{position:absolute;top:4px;left:4px;font-size:12px}
+.timeline{position:relative;padding-left:26px}
+.timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--border)}
+.tl-group{margin-bottom:20px}
+.tl-phase-hdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;margin-left:-26px}
+.tl-dot{width:16px;height:16px;border-radius:50%;flex-shrink:0;border:2px solid var(--bg);font-size:9px;display:flex;align-items:center;justify-content:center}
+.capture-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.cap-btn{padding:18px 10px;border:2px dashed var(--border);border-radius:var(--r);display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;background:transparent;width:100%;font-family:'DM Sans';transition:all 0.15s}
+.cap-btn:active{border-color:var(--accent)}
+.gps-status{display:flex;align-items:center;gap:10px;padding:11px 15px;border-radius:var(--rs);margin-bottom:12px;font-size:13px}
+.gps-ok{background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.25);color:var(--green)}
+.gps-wait{background:rgba(250,204,21,0.08);border:1px solid rgba(250,204,21,0.25);color:var(--yellow)}
+.gps-err{background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.25);color:var(--red)}
+.gps-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.gps-ok .gps-dot{background:var(--green);animation:pulse 2s infinite}
+.gps-wait .gps-dot{background:var(--yellow);animation:pulse 1s infinite}
+.gps-err .gps-dot{background:var(--red)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.fase-grid-s{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px}
+.fase-btn-s{padding:11px 6px;border:1.5px solid var(--border);border-radius:var(--rs);background:transparent;cursor:pointer;font-family:'DM Sans';font-size:12px;font-weight:500;color:var(--text3);transition:all 0.15s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
+.fase-btn-s.active{font-weight:700}
+.foto-preview{position:relative;width:100%;aspect-ratio:4/3;border-radius:var(--rs);overflow:hidden;background:var(--bg3);border:1px solid var(--border);margin-bottom:14px}
+.foto-preview img{width:100%;height:100%;object-fit:cover}
+.foto-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:8px;color:var(--text4)}
+.fase-custom-item{display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--bg3);border-radius:var(--rs);border:1px solid var(--border);margin-bottom:8px}
+.add-fase-row{display:flex;gap:8px}
+.add-fase-input{flex:1;padding:12px 14px;background:var(--bg);border:1.5px solid var(--border2);border-radius:var(--rs);color:var(--text);font-size:15px;font-family:'DM Sans';outline:none}
+.add-fase-btn{padding:12px 16px;border:none;border-radius:var(--rs);background:var(--accent);color:#fff;font-size:20px;cursor:pointer}
+
+/* ── ARCHIVIO ── */
+.link-item{padding:13px 16px;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);color:var(--accent);font-size:14px;text-decoration:none;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.link-item::after{content:'→';color:var(--text3)}
+.step-item{display:flex;align-items:flex-start;gap:10px;padding:13px 0;border-bottom:1px solid var(--border)}
+.step-item:last-child{border-bottom:none}
+.step-num{width:22px;height:22px;border-radius:50%;background:rgba(232,93,47,0.12);color:var(--accent);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-text{font-size:13px;color:var(--text3);line-height:1.5}
+.step-code{background:var(--bg);border:1px solid var(--border);border-radius:5px;padding:1px 7px;font-family:'DM Mono';font-size:11px;color:var(--text2)}
+
+/* ── LIGHTBOX ── */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:300;flex-direction:column}
+.lightbox.open{display:flex}
+.lb-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(0,0,0,0.5)}
+.lb-close{background:transparent;border:none;color:#fff;font-size:24px;cursor:pointer}
+.lb-img-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:14px;overflow:hidden}
+.lb-img-wrap img{max-width:100%;max-height:100%;border-radius:var(--rs);object-fit:contain}
+.lb-info{padding:14px 18px;background:rgba(0,0,0,0.5)}
+.lb-row{display:flex;justify-content:space-between;font-size:13px;color:var(--text3);margin-bottom:5px}
+.lb-nav{display:flex;justify-content:center;gap:16px;padding:10px}
+.lb-nav-btn{background:rgba(255,255,255,0.1);border:none;color:#fff;width:42px;height:42px;border-radius:50%;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:13px 20px;z-index:400;min-width:240px;max-width:90vw;transition:transform 0.3s ease;box-shadow:0 8px 32px rgba(0,0,0,0.6);text-align:center;font-size:14px;font-weight:500}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.critical{border-color:rgba(248,113,113,0.4);color:var(--red)}
+.toast.ok{border-color:rgba(74,222,128,0.4);color:var(--green)}
+
+/* ── SYNC DRIVE ── */
+.sync-bar{display:none!important;}
+.sync-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sync-ok .sync-dot{background:var(--green)}
+.sync-warn .sync-dot{background:var(--yellow);animation:pulse 1.5s infinite}
+.sync-err .sync-dot{background:var(--red)}
+.sync-label{flex:1;color:var(--text3)}
+.sync-btn{padding:6px 12px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text3);font-size:12px;cursor:pointer;font-family:'DM Sans';white-space:nowrap}
+.sync-btn:hover{border-color:var(--accent);color:var(--accent)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+/* ── PWA INSTALL BANNER ── */
+.pwa-banner{display:none;position:fixed;bottom:80px;left:16px;right:16px;background:var(--bg2);border:1px solid rgba(232,93,47,0.4);border-radius:var(--r);padding:16px;z-index:150;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
+.pwa-banner-title{font-size:15px;font-weight:700;margin-bottom:4px}
+.pwa-banner-sub{font-size:13px;color:var(--text3);margin-bottom:14px;line-height:1.5}
+.pwa-banner-row{display:flex;gap:8px}
+</style>
+.wa-tipo-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.wa-tipo-btn{padding:16px 10px;border:1.5px solid var(--border);border-radius:var(--r);background:transparent;cursor:pointer;font-family:'DM Sans';transition:all 0.15s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.wa-tipo-btn .wt-icon{font-size:26px}
+.wa-tipo-btn .wt-name{font-size:13px;font-weight:600;color:var(--text)}
+.wa-tipo-btn .wt-desc{font-size:11px;color:var(--text3)}
+.wa-tipo-btn.active-op{border-color:#25d366;background:rgba(37,211,102,0.08)}
+.wa-tipo-btn.active-cl{border-color:var(--blue);background:rgba(96,165,250,0.08)}
+.wa-conv-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:10px;cursor:pointer;transition:all 0.15s}
+.wa-conv-card:active{border-color:var(--accent)}
+.wa-conv-header{padding:14px 16px;display:flex;align-items:center;gap:12px}
+.wa-conv-avatar{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.wa-conv-name{font-size:15px;font-weight:600;margin-bottom:2px}
+.wa-conv-meta{font-size:12px;color:var(--text3)}
+.wa-conv-preview{padding:0 16px 14px;font-size:13px;color:var(--text4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wa-msg-list{display:flex;flex-direction:column;gap:8px;padding:4px 0}
+.wa-msg{max-width:85%;padding:10px 14px;border-radius:var(--r);font-size:14px;line-height:1.5;position:relative}
+.wa-msg.incoming{background:var(--bg3);border:1px solid var(--border);border-radius:4px var(--r) var(--r) var(--r);align-self:flex-start}
+.wa-msg.outgoing{background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.2);border-radius:var(--r) 4px var(--r) var(--r);align-self:flex-end}
+.wa-msg-sender{font-size:11px;font-weight:700;color:var(--accent2);margin-bottom:3px}
+.wa-msg-text{color:var(--text)}
+.wa-msg-time{font-size:10px;color:var(--text4);margin-top:4px;text-align:right;font-family:'DM Mono'}
+.wa-msg.highlight{border-color:var(--yellow);background:rgba(250,204,21,0.08)}
+.wa-ai-card{background:rgba(96,165,250,0.06);border:1px solid rgba(96,165,250,0.2);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.wa-ai-title{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.wa-ai-item{padding:10px 0;border-bottom:1px solid rgba(96,165,250,0.1);font-size:13px;color:var(--text2);line-height:1.5}
+.wa-ai-item:last-child{border-bottom:none}
+.wa-ai-badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-right:6px}
+.badge-impegno{background:rgba(232,93,47,0.15);color:var(--accent)}
+.badge-decisione{background:rgba(74,222,128,0.12);color:var(--green)}
+.badge-data{background:rgba(250,204,21,0.1);color:var(--yellow)}
+.badge-problema{background:rgba(248,113,113,0.12);color:var(--red)}
+.wa-search-bar{display:flex;gap:8px;margin-bottom:14px}
+.wa-search-bar input{flex:1;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-size:15px;font-family:'DM Sans';outline:none}
+.wa-search-bar input:focus{border-color:var(--accent)}
+.wa-screenshot-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.wa-screenshot-item{position:relative;border-radius:var(--rs);overflow:hidden;aspect-ratio:9/16;cursor:pointer;background:var(--bg3)}
+.wa-screenshot-item img{width:100%;height:100%;object-fit:cover}
+.wa-screenshot-overlay{position:absolute;bottom:0;left:0;right:0;padding:8px;background:linear-gradient(transparent,rgba(0,0,0,0.8));font-size:10px;color:#fff;font-family:'DM Mono'}
+</style>
+.pr-day-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.pr-date-nav{display:flex;align-items:center;gap:12px}
+.pr-nav-btn{width:36px;height:36px;border:1px solid var(--border);border-radius:50%;background:transparent;color:var(--text2);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.pr-date-label{font-size:16px;font-weight:700;text-align:center;min-width:140px}
+.pr-date-sub{font-size:11px;color:var(--text3);text-align:center;margin-top:1px}
+.pr-operaio-row{background:var(--bg3);border:1px solid var(--border);border-radius:var(--rs);padding:14px 16px;margin-bottom:8px}
+.pr-operaio-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.pr-operaio-name{font-size:15px;font-weight:600}
+.pr-operaio-role{font-size:12px;color:var(--text3)}
+.pr-ore-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px}
+.pr-ore-field{display:flex;flex-direction:column;gap:5px}
+.pr-ore-label{font-size:11px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.pr-ore-input{padding:10px 12px;background:var(--bg);border:1.5px solid var(--border2);border-radius:8px;color:var(--text);font-size:16px;font-family:'DM Sans';outline:none;text-align:center;width:100%}
+.pr-ore-input:focus{border-color:var(--accent)}
+.pr-stato-row{display:flex;gap:6px;margin-top:8px}
+.pr-stato-btn{flex:1;padding:8px 4px;border:1.5px solid var(--border);border-radius:8px;background:transparent;font-size:12px;font-family:'DM Sans';font-weight:500;cursor:pointer;transition:all 0.15s;text-align:center}
+.pr-stato-btn.active-presente{border-color:var(--green);background:rgba(74,222,128,0.1);color:var(--green)}
+.pr-stato-btn.active-assente{border-color:var(--red);background:rgba(248,113,113,0.1);color:var(--red)}
+.pr-stato-btn.active-permesso{border-color:var(--yellow);background:rgba(250,204,21,0.1);color:var(--yellow)}
+.pr-stato-btn.active-malattia{border-color:var(--blue);background:rgba(96,165,250,0.1);color:var(--blue)}
+.pr-riepilogo-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+.pr-riepilogo-row:last-child{border-bottom:none}
+.pr-riepilogo-name{font-size:14px;font-weight:500;color:var(--text2)}
+.pr-ore-tot{font-family:'DM Mono';font-weight:700;font-size:14px;color:var(--accent)}
+.pr-ore-str{font-family:'DM Mono';font-size:12px;color:var(--yellow)}
+.pr-week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px}
+.pr-week-day{text-align:center;padding:8px 4px;border-radius:8px;cursor:pointer;transition:all 0.15s;border:1px solid transparent}
+.pr-week-day.today{border-color:var(--accent)}
+.pr-week-day.selected{background:rgba(232,93,47,0.15);border-color:var(--accent)}
+.pr-week-day-name{font-size:10px;color:var(--text3);margin-bottom:4px}
+.pr-week-day-num{font-size:14px;font-weight:700}
+.pr-week-day-dot{width:5px;height:5px;border-radius:50%;margin:3px auto 0}
+.pr-monthly-table{width:100%;border-collapse:collapse;font-size:13px}
+.pr-monthly-table th{padding:8px 10px;text-align:left;color:var(--text3);font-size:11px;font-weight:600;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:0.5px}
+.pr-monthly-table td{padding:10px;border-bottom:1px solid var(--border);vertical-align:middle}
+.pr-monthly-table tr:last-child td{border-bottom:none}
+.pr-stato-chip{padding:3px 8px;border-radius:10px;font-size:11px;font-weight:700}
+.chip-presente{background:rgba(74,222,128,0.12);color:var(--green)}
+.chip-assente{background:rgba(248,113,113,0.12);color:var(--red)}
+.chip-permesso{background:rgba(250,204,21,0.1);color:var(--yellow)}
+.chip-malattia{background:rgba(96,165,250,0.1);color:var(--blue)}
+.operaio-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--rs);padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.operaio-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{animation:spin 1s linear infinite;display:inline-block}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════ HOME -->
+<div class="page active" id="page-home">
+<div class="phdr">
+  <div class="phdr-left">
+    <div class="phdr-logo" style="background:linear-gradient(135deg,var(--accent),var(--accent2))">🏛️</div>
+    <div>
+      <div style="font-size:16px;font-weight:700">RIKOSTRUZIONI SRL</div>
+      <div style="font-size:11px;color:var(--text3)">Gestione Cantieri</div>
+    </div>
+  </div>
+  <div id="home-alert-area"></div>
+</div>
+<!-- SYNC BAR -->
+<div class="sync-bar sync-warn" id="sync-bar">
+  <div class="sync-dot"></div>
+  <div class="sync-label" id="sync-label">Sincronizzazione Drive…</div>
+  <button class="sync-btn" onclick="driveSync()">↻ Sync</button>
+</div>
+<div class="cnt">
+  <div class="home-hero">
+    <div class="home-hero-title">Buongiorno 👋</div>
+    <div class="home-hero-sub" id="home-date"></div>
+  </div>
+  <div class="home-kpi" id="home-kpi"></div>
+  <div style="font-size:12px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Moduli</div>
+  <div class="module-grid">
+    <button class="mod-btn" onclick="goTo('archivio')"><div class="mod-icon">🏗️</div><div class="mod-name">Archivio</div><div class="mod-desc">Crea cantieri e gare su Drive</div></button>
+    <button class="mod-btn" onclick="goTo('spese')"><div class="mod-icon">💸</div><div class="mod-name">Spese</div><div class="mod-desc">Fatture, DDT e budget</div></button>
+    <button class="mod-btn" onclick="goTo('materiali')"><div class="mod-icon">🧱</div><div class="mod-name">Materiali</div><div class="mod-desc">Database prezzi e alert</div></button>
+    <button class="mod-btn" onclick="goTo('foto')"><div class="mod-icon">📸</div><div class="mod-name">Foto</div><div class="mod-desc">Galleria con GPS e timeline</div></button>
+  </div>
+  <div class="card" id="home-activity-card">
+    <div class="ct">⚡ Attività Recente</div>
+    <div id="home-activity"></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ ARCHIVIO -->
+<div class="page" id="page-archivio">
+<div class="phdr">
+  <div class="phdr-left">
+    <button onclick="goTo('home')" style="background:transparent;border:none;color:var(--text3);font-size:22px;cursor:pointer;padding:4px;margin-right:4px">←</button>
+    <div class="phdr-logo" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">🏗️</div>
+    <div><div style="font-size:15px;font-weight:700">Archivio Drive</div></div>
+  </div>
+</div>
+<div class="stw"><div class="stabs">
+  <button class="stab active" onclick="showStab(this,'arc-nc')">🏗️ Cantiere</button>
+  <button class="stab" onclick="showStab(this,'arc-ng')">🏆 Gara</button>
+  <button class="stab" onclick="showStab(this,'arc-pg')">🚀 Promuovi</button>
+  <button class="stab" onclick="showStab(this,'arc-sc')">📐 Schema</button>
+  <button class="stab" onclick="showStab(this,'arc-cl')">🧹 Da Fare</button>
+</div></div>
+<div class="cnt">
+  <div id="arc-nc" class="spanel active">
+    <div class="card">
+      <div class="ct">🏗️ Nuovo Cantiere</div>
+      <div class="info">Crea automaticamente tutta la struttura su Drive con 12 sottocartelle numerate, WhatsApp/Email/PEC, foto per lavorazione e Google Sheet mastrino.</div>
+      <label class="fl">Nome Cantiere / Cliente</label>
+      <input id="nc-nome" class="fi" type="text" placeholder="es. ROSSI MARIO - VIA ROMA 10" style="margin-bottom:14px">
+      <label class="fl">Tipo</label>
+      <div class="type-row">
+        <button class="tb active" id="tb-corso" onclick="setTipoArc('corso',this)">🏗️ In Corso</button>
+        <button class="tb" id="tb-comp" onclick="setTipoArc('comp',this)">✅ Completato</button>
+      </div>
+      <button class="btn" id="btn-nc" onclick="creaCantiere()">🏗️ Crea Cantiere su Drive</button>
+      <div class="success-banner" id="done-nc">✅ Cantiere creato!</div>
+    </div>
+    <div id="log-nc" class="log"></div>
+  </div>
+  <div id="arc-ng" class="spanel">
+    <div class="card">
+      <div class="ct">🏆 Nuova Gara</div>
+      <div class="info">Crea in <strong>03 - GARE DI APPALTO</strong> con le 4 sottocartelle standard.</div>
+      <label class="fl">Nome Gara</label>
+      <input id="ng-nome" class="fi" type="text" placeholder="es. Comune di Roma - 2026" style="margin-bottom:14px">
+      <button class="btn" id="btn-ng" onclick="creaGara()">🏆 Crea Gara su Drive</button>
+      <div class="success-banner" id="done-ng">✅ Gara creata!</div>
+    </div>
+    <div id="log-ng" class="log"></div>
+  </div>
+  <div id="arc-pg" class="spanel">
+    <div class="card">
+      <div class="ct">🚀 Gara → Cantiere</div>
+      <div class="info">La gara è andata a buon fine 🎉 Crea il cantiere completo in <strong>01 - CANTIERI IN CORSO</strong>.</div>
+      <label class="fl">Nome Cliente / Cantiere</label>
+      <input id="pg-nome" class="fi" type="text" placeholder="es. BIANCHI LUIGI - VIA NAPOLI 5" style="margin-bottom:14px">
+      <button class="btn" id="btn-pg" onclick="promuoviGara()">🚀 Promuovi a Cantiere</button>
+      <div class="success-banner" id="done-pg">✅ Cantiere creato!</div>
+    </div>
+    <div id="log-pg" class="log"></div>
+  </div>
+  <div id="arc-sc" class="spanel">
+    <div class="card"><div class="ct">📁 Struttura Cantiere</div>
+      <div style="font-family:'DM Mono';font-size:12px;line-height:2.2;color:var(--text3)">
+        📁 [NOME CANTIERE]<br>
+        <span style="padding-left:14px">📁 01 - Progetto → Elaborati / Computi</span><br>
+        <span style="padding-left:14px">📁 02 - Contratto</span><br>
+        <span style="padding-left:14px">📁 03 - Direzione Lavori</span><br>
+        <span style="padding-left:14px">📁 04 - Comunicazioni → Email / WhatsApp / PEC</span><br>
+        <span style="padding-left:14px">📁 05 - Offerte Fornitori</span><br>
+        <span style="padding-left:14px">📁 06 - Offerte al Cliente → In Corso / Accettate</span><br>
+        <span style="padding-left:14px">📁 07 - CILA e Doc. Amministrativi</span><br>
+        <span style="padding-left:14px">📁 08 - SAL e Contabilità</span><br>
+        <span style="padding-left:14px">📁 10 - Foto → Ante / In Corso / Post Operam</span><br>
+        <span style="padding-left:14px">📁 11 - Sicurezza</span><br>
+        <span style="padding-left:14px">📁 12 - Mastrino Pagamenti → 📊 Sheet</span>
+      </div>
+    </div>
+    <div class="card"><div class="ct">🔗 Link Rapidi</div>
+      <a class="link-item" href="https://drive.google.com/drive/folders/1S-GCScPRTjvXjuuTljgjoJSzlLk7gMgQ" target="_blank">NEW GOOGLE DRIVE 2025</a>
+      <a class="link-item" href="https://drive.google.com/drive/folders/17xxiVVDbg07D3zGPPVO3jqT3Dkqm-73k" target="_blank">RIKOSTRUZIONI SRL</a>
+      <a class="link-item" href="https://drive.google.com/drive/folders/1df_YLsfcAyvR5BlP2irtYKqHLhUyvNX2" target="_blank">01 - CANTIERI IN CORSO</a>
+      <a class="link-item" href="https://drive.google.com/drive/folders/1rGDAlR9MoRxkAD9605FzvXEKg0Y-fyZP" target="_blank">03 - GARE DI APPALTO</a>
+      <a class="link-item" href="https://drive.google.com/drive/folders/11mYlcG06ibeLqWAAAQthY995LvhWkD7c" target="_blank">04 - AMMINISTRAZIONE</a>
+    </div>
+  </div>
+  <div id="arc-cl" class="spanel">
+    <div class="card"><div class="ct">🧹 Da Fare su Drive</div>
+      <div class="step-item"><div class="step-num">1</div><div class="step-text">❌ Elimina <span class="step-code">Contratto & Preventivi</span> → già presente <span class="step-code">02 - Contratto</span></div></div>
+      <div class="step-item"><div class="step-num">2</div><div class="step-text">❌ Elimina <span class="step-code">Documenti Tecnici</span> → già presente <span class="step-code">01 - Progetto</span></div></div>
+      <div class="step-item"><div class="step-num">3</div><div class="step-text">❌ Elimina <span class="step-code">Foto</span> → già presente <span class="step-code">10 - Foto e Doc. Visiva</span></div></div>
+      <div class="step-item"><div class="step-num">4</div><div class="step-text">❌ Elimina <span class="step-code">09 - SAL</span> duplicato del 08</div></div>
+      <div class="step-item"><div class="step-num">5</div><div class="step-text">❌ Elimina <span class="step-code">Gare di Appalto</span> senza numero</div></div>
+      <div class="step-item"><div class="step-num">6</div><div class="step-text">✏️ Rinomina <span class="step-code">08 - DAL</span> → <span class="step-code">08 - SAL e Contabilità</span> <span style="color:var(--text4)">(ZARRA e POERIO)</span></div></div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ═══════════════════════════════════════════════════════ SPESE -->
+<div class="page" id="page-spese">
+<div class="phdr">
+  <div class="phdr-left">
+    <button onclick="goTo('home')" style="background:transparent;border:none;color:var(--text3);font-size:22px;cursor:pointer;padding:4px;margin-right:4px">←</button>
+    <div class="phdr-logo" style="background:linear-gradient(135deg,#e85d2f,#f5a623)">💸</div>
+    <div><div style="font-size:15px;font-weight:700">Spese Cantieri</div></div>
+  </div>
+  <div class="phdr-kpi">
+    <div class="pk"><div class="pk-v" style="color:var(--accent)" id="sp-hk-speso">€0</div><div class="pk-l">Speso</div></div>
+    <div class="pk"><div class="pk-v" style="color:var(--green)" id="sp-hk-docs">0</div><div class="pk-l">Doc.</div></div>
+  </div>
+</div>
+<div class="stw"><div class="stabs">
+  <button class="stab active" onclick="showStab(this,'sp-carica')">📄 Carica</button>
+  <button class="stab" onclick="showStab(this,'sp-registro');renderVoci()">📋 Registro</button>
+  <button class="stab" onclick="showStab(this,'sp-dash');renderSpeseDash()">📊 Dashboard</button>
+  <button class="stab" onclick="showStab(this,'sp-budget');renderBudget()">🎯 Budget</button>
+</div></div>
+<div class="cnt">
+  <div id="sp-carica" class="spanel active">
+    <div class="dz" id="sp-dz" onclick="document.getElementById('sp-fi').click()" ondrop="spOnDrop(event)" ondragover="spOnDragOver(event)" ondragleave="spOnDragLeave()">
+      <input type="file" id="sp-fi" multiple accept=".pdf,.jpg,.jpeg,.png,.heic,.webp" style="display:none" onchange="spAddFiles(this.files)">
+      <div style="font-size:32px;margin-bottom:8px">🧾</div>
+      <div style="font-size:15px;font-weight:600;margin-bottom:4px">Carica Fatture e DDT</div>
+      <div style="font-size:13px;color:var(--text3)">L'AI legge importi, fornitore e cantiere</div>
+    </div>
+    <div id="sp-batch" style="display:none;margin-bottom:12px"><button class="btn" id="sp-btn-all" onclick="spAnalyzeAll()">🤖 Analizza tutti</button></div>
+    <div id="sp-docs-list"></div>
+    <div id="sp-docs-empty" class="empty"><div class="ei">🧾</div><div class="et">Nessun documento</div></div>
+  </div>
+  <div id="sp-registro" class="spanel">
+    <div class="btn-row">
+      <button class="bts bts-g" style="flex:1" onclick="spExportCSV()">📥 CSV</button>
+      <button class="bts bts-b" style="flex:1" onclick="window.open('https://docs.google.com/spreadsheets/d/1G_V4gANaHi3gXj_yTX4zZi-zbZyb9OKZjm12T6qQGn8/edit','_blank')">📊 Sheet</button>
+    </div>
+    <div id="sp-voci-empty" class="empty"><div class="ei">📋</div><div class="et">Nessuna voce</div></div>
+    <div id="sp-voci-list"></div>
+  </div>
+  <div id="sp-dash" class="spanel">
+    <div id="sp-dash-empty" class="empty"><div class="ei">📊</div><div class="et">Registra documenti per la dashboard</div></div>
+    <div id="sp-dash-content" style="display:none">
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-big" style="color:var(--accent)" id="sp-d-speso">€0</div><div class="kpi-lbl">Speso</div></div>
+        <div class="kpi-card"><div class="kpi-big" style="color:var(--text2)" id="sp-d-budget">€0</div><div class="kpi-lbl">Budget</div></div>
+        <div class="kpi-card"><div class="kpi-big" id="sp-d-residuo">€0</div><div class="kpi-lbl">Residuo</div></div>
+      </div>
+      <div class="card"><div class="ct">Budget vs Speso</div><div id="sp-prog"></div></div>
+      <div class="card"><div class="ct">Grafico</div><div class="chart-wrap"><canvas id="sp-chart"></canvas></div></div>
+    </div>
+  </div>
+  <div id="sp-budget" class="spanel"><div id="sp-budget-list"></div></div>
+</div></div>
+
+<!-- ═══════════════════════════════════════════════════════ MATERIALI -->
+<div class="page" id="page-materiali">
+<div class="phdr">
+  <div class="phdr-left">
+    <button onclick="goTo('home')" style="background:transparent;border:none;color:var(--text3);font-size:22px;cursor:pointer;padding:4px;margin-right:4px">←</button>
+    <div class="phdr-logo" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">🧱</div>
+    <div><div style="font-size:15px;font-weight:700">Database Materiali</div></div>
+  </div>
+  <div class="phdr-kpi">
+    <div class="pk"><div class="pk-v" style="color:var(--accent)" id="mat-hk-n">0</div><div class="pk-l">Materiali</div></div>
+    <div class="pk"><div class="pk-v" style="color:var(--green)" id="mat-hk-tot">€0</div><div class="pk-l">Acquistato</div></div>
+  </div>
+</div>
+<div class="stw"><div class="stabs">
+  <button class="stab active" onclick="showStab(this,'mat-carica')">📄 Carica</button>
+  <button class="stab" onclick="showStab(this,'mat-db');renderMatDB()">🧱 Database</button>
+  <button class="stab" onclick="showStab(this,'mat-conf');renderMatConf()">📊 Confronto</button>
+  <div class="stab-wrap"><button class="stab" id="stab-alert" onclick="showStab(this,'mat-alert');renderMatAlerts()">🔔 Alert</button><span class="stab-badge" id="mat-alert-badge">0</span></div>
+  <button class="stab" onclick="showStab(this,'mat-manual')">✏️ Aggiungi</button>
+</div></div>
+<div class="cnt">
+  <div id="mat-carica" class="spanel active">
+    <div class="dz" id="mat-dz" onclick="document.getElementById('mat-fi').click()" ondrop="matOnDrop(event)" ondragover="matOnDragOver(event)" ondragleave="matOnDragLeave()">
+      <input type="file" id="mat-fi" multiple accept=".pdf,.jpg,.jpeg,.png,.heic,.webp" style="display:none" onchange="matAddFiles(this.files)">
+      <div style="font-size:32px;margin-bottom:8px">📦</div>
+      <div style="font-size:15px;font-weight:600;margin-bottom:4px">Carica Fatture e Bolle</div>
+      <div style="font-size:13px;color:var(--text3)">L'AI estrae tutti i materiali con prezzi e quantità</div>
+    </div>
+    <div id="mat-batch" style="display:none;margin-bottom:12px"><button class="btn" id="mat-btn-all" onclick="matAnalyzeAll()">🤖 Estrai da tutti</button></div>
+    <div id="mat-docs-list"></div>
+    <div id="mat-docs-empty" class="empty"><div class="ei">📦</div><div class="et">Nessun documento</div></div>
+  </div>
+  <div id="mat-db" class="spanel">
+    <div class="search-wrap"><span class="search-icon">🔍</span><input type="text" placeholder="Cerca materiale…" id="mat-search" oninput="renderMatDB()"></div>
+    <div class="filter-row" id="mat-filter-row"><button class="filt active" onclick="setMatFilter(this,'')">Tutti</button></div>
+    <div class="btn-row">
+      <button class="bts bts-g" style="flex:1" onclick="matExportCSV()">📥 CSV</button>
+      <button class="bts bts-b" style="flex:1" onclick="matExportXLS()">📊 Excel</button>
+    </div>
+    <div id="mat-db-list"></div>
+    <div id="mat-db-empty" class="empty" style="display:none"><div class="ei">🧱</div><div class="et">Nessun materiale</div></div>
+  </div>
+  <div id="mat-conf" class="spanel">
+    <div id="mat-conf-empty" class="empty"><div class="ei">📊</div><div class="et">Nessun dato</div></div>
+    <div id="mat-conf-content" style="display:none">
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="kpi-big" style="color:var(--accent)" id="mat-c-tot">€0</div><div class="kpi-lbl">Totale</div></div>
+        <div class="kpi-card"><div class="kpi-big" style="color:var(--blue)" id="mat-c-n">0</div><div class="kpi-lbl">Materiali</div></div>
+        <div class="kpi-card"><div class="kpi-big" style="color:var(--green)" id="mat-c-f">0</div><div class="kpi-lbl">Fornitori</div></div>
+      </div>
+      <div class="card"><div class="ct">Spesa per Cantiere</div><div id="mat-conf-prog"></div></div>
+      <div class="card"><div class="ct">Top Materiali</div><div id="mat-top"></div></div>
+    </div>
+  </div>
+  <div id="mat-alert" class="spanel">
+    <div class="card" style="background:rgba(248,113,113,0.05);border-color:rgba(248,113,113,0.2)">
+      <div style="font-size:14px;font-weight:600;margin-bottom:12px">⚙️ Soglie di allerta</div>
+      <div class="fg">
+        <div><label class="fl" style="margin-top:0">🔴 Critico (%)</label><input class="fi" type="number" id="soglia-critica" value="20" oninput="aggiornaMatAlert()"></div>
+        <div><label class="fl" style="margin-top:0">🟡 Attenzione (%)</label><input class="fi" type="number" id="soglia-warning" value="10" oninput="aggiornaMatAlert()"></div>
+      </div>
+    </div>
+    <div id="mat-alert-sum" style="display:none;margin-bottom:12px"></div>
+    <div id="mat-alert-list"></div>
+    <div id="mat-alert-empty" class="empty"><div class="ei">✅</div><div class="et">Nessun alert</div><div class="es">Tutti i prezzi nella norma</div></div>
+  </div>
+  <div id="mat-manual" class="spanel">
+    <div class="card">
+      <div class="ct">✏️ Aggiungi Manualmente</div>
+      <label class="fl">Nome Materiale *</label>
+      <input class="fi" type="text" id="m-nome" placeholder="es. Mattoni forati 25x12x25" style="margin-bottom:14px">
+      <label class="fl">Categoria</label>
+      <select class="fi" id="m-cat" style="margin-bottom:14px">
+        <option value="">— Seleziona —</option>
+        <option>Muratura e Laterizi</option><option>Cemento e Calcestruzzo</option>
+        <option>Ferro e Acciaio</option><option>Legno e Derivati</option>
+        <option>Impianti Elettrici</option><option>Impianti Idraulici</option>
+        <option>Rivestimenti e Pavimenti</option><option>Isolamento</option>
+        <option>Serramenti</option><option>Intonaci e Pitture</option><option>Altro</option>
+      </select>
+      <label class="fl">Fornitore</label>
+      <input class="fi" type="text" id="m-forn" placeholder="es. Edil Rossi Srl" style="margin-bottom:14px">
+      <div class="fg" style="margin-bottom:14px">
+        <div><label class="fl" style="margin-top:0">Prezzo €/um</label><input class="fi" type="number" id="m-prezzo" placeholder="0.85" step="0.01"></div>
+        <div><label class="fl" style="margin-top:0">Unità</label><select class="fi" id="m-um"><option>pz</option><option>ml</option><option>mq</option><option>mc</option><option>kg</option><option>t</option><option>l</option><option>sacchi</option></select></div>
+      </div>
+      <div class="fg" style="margin-bottom:14px">
+        <div><label class="fl" style="margin-top:0">Qtà Ordinata</label><input class="fi" type="number" id="m-qord" placeholder="1000"></div>
+        <div><label class="fl" style="margin-top:0">Qtà Ricevuta</label><input class="fi" type="number" id="m-qric" placeholder="1000"></div>
+      </div>
+      <label class="fl">Cantiere</label>
+      <select class="fi" id="m-cant" style="margin-bottom:14px">
+        <option value="">— Nessuno —</option>
+        <option value="SIRABELLA">SIRABELLA</option><option value="CUOMO">CUOMO DAVIDE</option>
+        <option value="PARIOLI">VIALE PARIOLI</option><option value="CARANNANTE">CARANNANTE TRIGORIA</option>
+        <option value="ZARRA">ZARRA ALESSANDRO</option><option value="POERIO">POERIO 14</option>
+      </select>
+      <label class="fl">Data</label>
+      <input class="fi" type="date" id="m-data" style="margin-bottom:14px">
+      <button class="btn" onclick="matAggiungiManuale()">✏️ Aggiungi al Database</button>
+      <div class="success-banner" id="mat-success">✅ Materiale aggiunto!</div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ═══════════════════════════════════════════════════════ FOTO -->
+<div class="page" id="page-foto">
+<div class="phdr">
+  <div class="phdr-left">
+    <button onclick="goTo('home')" style="background:transparent;border:none;color:var(--text3);font-size:22px;cursor:pointer;padding:4px;margin-right:4px">←</button>
+    <div class="phdr-logo" style="background:linear-gradient(135deg,#10b981,#059669)">📸</div>
+    <div><div style="font-size:15px;font-weight:700">Foto Cantieri</div></div>
+  </div>
+  <div class="phdr-kpi">
+    <div class="pk"><div class="pk-v" style="color:var(--accent)" id="foto-hk-n">0</div><div class="pk-l">Foto</div></div>
+    <div class="pk"><div class="pk-v" style="color:var(--blue)" id="foto-hk-c">0</div><div class="pk-l">Cantieri</div></div>
+  </div>
+</div>
+<div class="stw"><div class="stabs">
+  <button class="stab active" onclick="showStab(this,'foto-cant');renderFotoCantieri()">🏗️ Cantieri</button>
+  <button class="stab" id="stab-gallery" onclick="showStab(this,'foto-gallery');renderFotoGallery()">📸 Galleria</button>
+  <button class="stab" onclick="showStab(this,'foto-scatta');initFotoScatta();requestGPS()">📷 Scatta</button>
+  <button class="stab" onclick="showStab(this,'foto-fasi');renderFotoFasi()">⚙️ Fasi</button>
+</div></div>
+<div class="cnt">
+  <div id="foto-cant" class="spanel active"><div id="foto-cant-list"></div><div id="foto-cant-empty" class="empty" style="display:none"><div class="ei">🏗️</div><div class="et">Nessun cantiere con foto</div><div class="es">Vai su "Scatta" per aggiungere foto</div></div></div>
+  <div id="foto-gallery" class="spanel">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <button onclick="showStab(document.querySelector('#page-foto .stab'),null,true);renderFotoCantieri()" style="background:transparent;border:none;color:var(--text3);font-size:22px;cursor:pointer">←</button>
+      <div><div style="font-size:16px;font-weight:700" id="foto-gal-title">—</div><div style="font-size:12px;color:var(--text3)" id="foto-gal-sub"></div></div>
+    </div>
+    <div class="card" id="foto-phase-card"><div class="ct">📊 Progressione</div><div id="foto-phase-prog"></div></div>
+    <div class="filter-row" id="foto-fase-filters"></div>
+    <div id="foto-timeline"></div>
+    <div id="foto-gal-empty" class="empty" style="display:none"><div class="ei">📷</div><div class="et">Nessuna foto</div></div>
+  </div>
+  <div id="foto-scatta" class="spanel">
+    <div class="gps-status gps-wait" id="gps-status"><div class="gps-dot"></div><div style="flex:1"><div style="font-weight:600;font-size:14px">GPS</div><div style="font-size:12px;opacity:0.8" id="gps-coords-txt">Acquisizione…</div></div><button onclick="requestGPS()" style="background:transparent;border:1px solid currentColor;border-radius:8px;color:currentColor;padding:5px 10px;font-size:12px;cursor:pointer;font-family:'DM Sans'">🔄</button></div>
+    <div class="foto-preview" id="foto-preview-el"><div class="foto-ph"><div style="font-size:44px">📷</div><div style="font-size:14px;color:var(--text3)">Nessuna foto</div></div></div>
+    <div class="capture-grid">
+      <button class="cap-btn" onclick="document.getElementById('foto-cam').click()">
+        <input type="file" id="foto-cam" accept="image/*" capture="environment" style="display:none" onchange="fotoOnFile(this)">
+        <div style="font-size:30px">📷</div><div style="font-size:14px;font-weight:600;color:var(--text)">Fotocamera</div><div style="font-size:12px;color:var(--text3)">Scatta ora</div>
+      </button>
+      <button class="cap-btn" onclick="document.getElementById('foto-gal').click()">
+        <input type="file" id="foto-gal" accept="image/*" multiple style="display:none" onchange="fotoOnFiles(this)">
+        <div style="font-size:30px">🖼️</div><div style="font-size:14px;font-weight:600;color:var(--text)">Galleria</div><div style="font-size:12px;color:var(--text3)">Importa foto</div>
+      </button>
+    </div>
+    <div class="card" id="foto-form-card" style="display:none">
+      <div class="ct">📋 Assegna Foto</div>
+      <label class="fl">Cantiere *</label>
+      <select class="fi" id="foto-f-cant" style="margin-bottom:14px">
+        <option value="">— Seleziona —</option>
+        <option value="SIRABELLA">SIRABELLA</option><option value="CUOMO">CUOMO DAVIDE</option>
+        <option value="PARIOLI">VIALE PARIOLI</option><option value="CARANNANTE">CARANNANTE TRIGORIA</option>
+        <option value="ZARRA">ZARRA ALESSANDRO</option><option value="POERIO">POERIO 14</option>
+      </select>
+      <label class="fl">Fase di Lavorazione *</label>
+      <div class="fase-grid-s" id="foto-fase-grid"></div>
+      <label class="fl">Descrizione</label>
+      <input class="fi" type="text" id="foto-f-desc" placeholder="es. Posa mattoni, Tracce impianto…" style="margin-bottom:14px">
+      <label class="fl">Data e Ora</label>
+      <input class="fi" type="datetime-local" id="foto-f-data" style="margin-bottom:14px">
+      <div id="foto-gps-info" style="display:none;margin-bottom:14px;padding:10px 14px;background:var(--bg);border-radius:var(--rs);font-size:12px;color:var(--text3);font-family:'DM Mono'"></div>
+      <button class="btn" id="foto-btn-salva" onclick="fotoSalva()">💾 Salva nel Cantiere</button>
+    </div>
+  </div>
+  <div id="foto-fasi" class="spanel"><div id="foto-fasi-content"></div></div>
+</div></div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lb-hdr"><div style="font-size:14px;font-weight:600;color:#fff" id="lb-title"></div><button class="lb-close" onclick="closeLB()">✕</button></div>
+  <div class="lb-img-wrap"><img id="lb-img" src="" alt=""></div>
+  <div class="lb-info" id="lb-info"></div>
+  <div class="lb-nav"><button class="lb-nav-btn" onclick="lbNav(-1)">‹</button><span style="color:var(--text3);font-size:13px" id="lb-counter"></span><button class="lb-nav-btn" onclick="lbNav(1)">›</button></div>
+</div>
+
+<!-- MODAL MATERIALI -->
+<div id="mat-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;align-items:flex-end;justify-content:center" onclick="if(event.target===this)matCloseModal()">
+  <div style="background:var(--bg2);border-radius:20px 20px 0 0;padding:22px 18px;width:100%;max-height:85vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div style="font-size:16px;font-weight:700" id="mat-modal-title">Materiali</div>
+      <button onclick="matCloseModal()" style="background:transparent;border:none;color:var(--text3);font-size:22px;cursor:pointer">✕</button>
+    </div>
+    <div id="mat-modal-body"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ PRESENZE -->
+<div class="page" id="page-presenze">
+<div class="phdr">
+  <div class="phdr-left">
+    <button onclick="goTo('home')" style="background:transparent;border:none;color:var(--text3);font-size:22px;cursor:pointer;padding:4px;margin-right:4px">←</button>
+    <div class="phdr-logo" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)">👷</div>
+    <div><div style="font-size:15px;font-weight:700">Presenze Operai</div></div>
+  </div>
+  <div class="phdr-kpi">
+    <div class="pk"><div class="pk-v" style="color:var(--accent)" id="pr-hk-oggi">0</div><div class="pk-l">Presenti oggi</div></div>
+    <div class="pk"><div class="pk-v" style="color:var(--green)" id="pr-hk-ore">0h</div><div class="pk-l">Ore oggi</div></div>
+  </div>
+</div>
+<div class="stw"><div class="stabs">
+  <button class="stab active" onclick="showStab(this,'pr-oggi');renderPresenzeOggi()">📅 Oggi</button>
+  <button class="stab" onclick="showStab(this,'pr-settimana');renderPresenzeSettimana()">📆 Settimana</button>
+  <button class="stab" onclick="showStab(this,'pr-riepilogo');renderPresenzeRiepilogo()">📊 Riepilogo</button>
+  <button class="stab" onclick="showStab(this,'pr-operai');renderOperai()">👷 Operai</button>
+  <button class="stab" onclick="showStab(this,'pr-export')">📥 Export</button>
+</div></div>
+<div class="cnt">
+
+  <!-- OGGI -->
+  <div id="pr-oggi" class="spanel active">
+    <div class="pr-day-header">
+      <div class="pr-date-nav">
+        <button class="pr-nav-btn" onclick="prChangeDay(-1)">‹</button>
+        <div>
+          <div class="pr-date-label" id="pr-date-label">—</div>
+          <div class="pr-date-sub" id="pr-date-sub">—</div>
+        </div>
+        <button class="pr-nav-btn" onclick="prChangeDay(1)">›</button>
+      </div>
+      <button onclick="prCurrentDay=new Date().toISOString().slice(0,10);renderPresenzeOggi()" style="padding:8px 14px;border:1px solid var(--border);border-radius:var(--rs);background:transparent;color:var(--text3);font-size:13px;cursor:pointer;font-family:'DM Sans'">Oggi</button>
+    </div>
+
+    <!-- Cantiere del giorno -->
+    <div style="margin-bottom:14px">
+      <label class="fl" style="margin-top:0">Cantiere del giorno</label>
+      <select class="fi" id="pr-cantiere-giorno" onchange="prSaveDayCantiere(this.value)" style="margin-bottom:0">
+        <option value="">— Seleziona cantiere —</option>
+        <option value="SIRABELLA">SIRABELLA</option>
+        <option value="CUOMO">CUOMO DAVIDE</option>
+        <option value="PARIOLI">VIALE PARIOLI</option>
+        <option value="CARANNANTE">CARANNANTE TRIGORIA</option>
+        <option value="ZARRA">ZARRA ALESSANDRO</option>
+        <option value="POERIO">POERIO 14</option>
+      </select>
+    </div>
+
+    <div id="pr-operai-list"></div>
+    <div id="pr-no-operai" class="empty" style="display:none">
+      <div class="ei">👷</div>
+      <div class="et">Nessun operaio</div>
+      <div class="es">Aggiungi gli operai nella tab "Operai"</div>
+    </div>
+    <button class="btn" style="margin-top:8px" onclick="prSalvaGiornata()">💾 Salva Giornata</button>
+    <div class="success-banner" id="pr-success-oggi">✅ Giornata salvata!</div>
+  </div>
+
+  <!-- SETTIMANA -->
+  <div id="pr-settimana" class="spanel">
+    <div id="pr-week-nav" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <button class="pr-nav-btn" onclick="prChangeWeek(-1)">‹</button>
+      <div style="font-size:15px;font-weight:700;text-align:center" id="pr-week-label">—</div>
+      <button class="pr-nav-btn" onclick="prChangeWeek(1)">›</button>
+    </div>
+    <div class="pr-week-grid" id="pr-week-grid"></div>
+    <div class="card"><div class="ct">Ore Settimanali per Operaio</div><div id="pr-week-table"></div></div>
+  </div>
+
+  <!-- RIEPILOGO MENSILE -->
+  <div id="pr-riepilogo" class="spanel">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <button class="pr-nav-btn" onclick="prChangeMonth(-1)">‹</button>
+      <div style="font-size:15px;font-weight:700;text-align:center" id="pr-month-label">—</div>
+      <button class="pr-nav-btn" onclick="prChangeMonth(1)">›</button>
+    </div>
+    <div class="kpi-row" id="pr-month-kpi"></div>
+    <div class="card"><div class="ct">Riepilogo per Operaio</div><div id="pr-month-table"></div></div>
+    <div class="card"><div class="ct">Presenze per Cantiere</div><div id="pr-month-cantieri"></div></div>
+  </div>
+
+  <!-- OPERAI -->
+  <div id="pr-operai" class="spanel">
+    <div id="pr-operai-cards"></div>
+    <div class="card">
+      <div class="ct">➕ Aggiungi Operaio</div>
+      <div class="fg" style="margin-bottom:14px">
+        <div><label class="fl" style="margin-top:0">Nome</label><input class="fi" type="text" id="pr-new-nome" placeholder="es. Mario"></div>
+        <div><label class="fl" style="margin-top:0">Cognome</label><input class="fi" type="text" id="pr-new-cognome" placeholder="es. Rossi"></div>
+      </div>
+      <label class="fl">Ruolo / Mansione</label>
+      <select class="fi" id="pr-new-ruolo" style="margin-bottom:14px">
+        <option value="">— Seleziona —</option>
+        <option>Muratore</option><option>Elettricista</option><option>Idraulico</option>
+        <option>Piastrellista</option><option>Imbianchino</option><option>Carpentiere</option>
+        <option>Manovale</option><option>Capo Cantiere</option><option>Altro</option>
+      </select>
+      <button class="btn" onclick="prAddOperaio()">➕ Aggiungi Operaio</button>
+      <div class="success-banner" id="pr-success-op">✅ Operaio aggiunto!</div>
+    </div>
+  </div>
+
+  <!-- EXPORT -->
+  <div id="pr-export" class="spanel">
+    <div class="card">
+      <div class="ct">📥 Esporta Presenze</div>
+      <div style="font-size:14px;color:var(--text3);margin-bottom:16px;line-height:1.6">Seleziona il periodo da esportare. Il file CSV è compatibile con Excel e Google Sheets.</div>
+      <label class="fl">Mese</label>
+      <select class="fi" id="pr-export-mese" style="margin-bottom:14px">
+        <option value="01">Gennaio</option><option value="02">Febbraio</option><option value="03">Marzo</option>
+        <option value="04">Aprile</option><option value="05">Maggio</option><option value="06">Giugno</option>
+        <option value="07">Luglio</option><option value="08">Agosto</option><option value="09">Settembre</option>
+        <option value="10">Ottobre</option><option value="11">Novembre</option><option value="12">Dicembre</option>
+      </select>
+      <label class="fl">Anno</label>
+      <input class="fi" type="number" id="pr-export-anno" style="margin-bottom:14px">
+      <button class="btn" onclick="prExportCSV()" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)">📥 Esporta CSV</button>
+      <div style="margin-top:10px"></div>
+      <button class="btn" onclick="prExportXLS()" style="background:linear-gradient(135deg,#16a34a,#15803d)">📊 Esporta Excel</button>
+    </div>
+    <div class="card">
+      <div class="ct">🗑️ Gestione Dati</div>
+      <button onclick="if(confirm('Eliminare TUTTE le presenze?')){presenze={};saveAll();prUpdateKpi();toast('🗑️ Presenze eliminate')}" style="width:100%;padding:14px;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);border-radius:var(--rs);color:var(--red);font-size:14px;cursor:pointer;font-family:'DM Sans'">🗑️ Elimina tutte le presenze</button>
+    </div>
+  </div>
+
+</div></div>
+
+<!-- ═══════════════════════════════════════════════════════ WHATSAPP -->
+<div class="page" id="page-whatsapp">
+<div class="phdr">
+  <div class="phdr-left">
+    <button onclick="goTo('home')" style="background:transparent;border:none;color:var(--text3);font-size:22px;cursor:pointer;padding:4px;margin-right:4px">←</button>
+    <div class="phdr-logo" style="background:linear-gradient(135deg,#25d366,#128c7e)">💬</div>
+    <div><div style="font-size:15px;font-weight:700">Archivio WhatsApp</div></div>
+  </div>
+  <div class="phdr-kpi">
+    <div class="pk"><div class="pk-v" style="color:#25d366" id="wa-hk-conv">0</div><div class="pk-l">Conversazioni</div></div>
+    <div class="pk"><div class="pk-v" style="color:var(--blue)" id="wa-hk-msg">0</div><div class="pk-l">Messaggi</div></div>
+  </div>
+</div>
+<div class="stw"><div class="stabs">
+  <button class="stab active" onclick="showStab(this,'wa-archivio');waRenderArchivio()">💬 Archivio</button>
+  <button class="stab" onclick="showStab(this,'wa-carica')">📥 Carica</button>
+  <button class="stab" onclick="showStab(this,'wa-cerca')">🔍 Cerca</button>
+</div></div>
+<div class="cnt">
+
+  <!-- ARCHIVIO CONVERSAZIONI -->
+  <div id="wa-archivio" class="spanel active">
+    <div style="display:flex;gap:8px;margin-bottom:14px">
+      <button class="filt active" id="wa-filt-all" onclick="waSetFiltroTipo('',this)">Tutte</button>
+      <button class="filt" id="wa-filt-op" onclick="waSetFiltroTipo('operai',this)" style="border-color:rgba(37,211,102,0.4);color:#25d366">👷 Operai</button>
+      <button class="filt" id="wa-filt-cl" onclick="waSetFiltroTipo('cliente',this)" style="border-color:rgba(96,165,250,0.3);color:var(--blue)">🤝 Clienti</button>
+    </div>
+    <div class="filter-row" id="wa-filt-cant">
+      <button class="filt active" onclick="waSetFiltroCant('',this)">Tutti cantieri</button>
+    </div>
+    <div id="wa-conv-list"></div>
+    <div id="wa-conv-empty" class="empty">
+      <div class="ei">💬</div>
+      <div class="et">Nessuna conversazione</div>
+      <div class="es">Carica esportazioni WhatsApp dalla tab "Carica"</div>
+    </div>
+  </div>
+
+  <!-- CARICA -->
+  <div id="wa-carica" class="spanel">
+    <div class="card">
+      <div class="ct">📥 Tipo di Conversazione</div>
+      <div class="wa-tipo-row">
+        <button class="wa-tipo-btn" id="wa-t-op" onclick="waSetTipoCarica('operai')">
+          <div class="wt-icon">👷</div>
+          <div class="wt-name">Operai</div>
+          <div class="wt-desc">Chat operative di cantiere</div>
+        </button>
+        <button class="wa-tipo-btn" id="wa-t-cl" onclick="waSetTipoCarica('cliente')">
+          <div class="wt-icon">🤝</div>
+          <div class="wt-name">Cliente</div>
+          <div class="wt-desc">Conversazioni commerciali</div>
+        </button>
+      </div>
+      <label class="fl">Cantiere di riferimento</label>
+      <select class="fi" id="wa-carica-cant" style="margin-bottom:14px">
+        <option value="">— Seleziona cantiere —</option>
+        <option value="SIRABELLA">SIRABELLA</option>
+        <option value="CUOMO">CUOMO DAVIDE</option>
+        <option value="PARIOLI">VIALE PARIOLI</option>
+        <option value="CARANNANTE">CARANNANTE TRIGORIA</option>
+        <option value="ZARRA">ZARRA ALESSANDRO</option>
+        <option value="POERIO">POERIO 14</option>
+      </select>
+      <label class="fl">Nome contatto / gruppo</label>
+      <input class="fi" type="text" id="wa-carica-nome" placeholder="es. Mario Rossi, Gruppo Operai PARIOLI" style="margin-bottom:14px">
+    </div>
+
+    <!-- Carica .txt / .zip -->
+    <div class="card">
+      <div class="ct">📄 Esportazione WhatsApp (.txt)</div>
+      <div class="info" style="margin-bottom:14px">Su WhatsApp: Apri chat → ⋮ → Altro → Esporta chat → Senza media → salva il file .txt e caricalo qui.</div>
+      <div class="dz" id="wa-dz-txt" onclick="document.getElementById('wa-fi-txt').click()" ondrop="waOnDropTxt(event)" ondragover="event.preventDefault()" ondragleave="this.classList.remove('drag')">
+        <input type="file" id="wa-fi-txt" accept=".txt,.zip" style="display:none" onchange="waLoadTxt(this)">
+        <div style="font-size:30px;margin-bottom:8px">📄</div>
+        <div style="font-size:15px;font-weight:600;margin-bottom:4px">Carica file .txt</div>
+        <div style="font-size:13px;color:var(--text3)">Esportazione chat WhatsApp</div>
+      </div>
+      <div id="wa-txt-preview" style="display:none"></div>
+      <button class="btn" id="wa-btn-importa-txt" style="display:none" onclick="waImportaTxt()">💾 Importa Conversazione</button>
+    </div>
+
+    <!-- Carica screenshot -->
+    <div class="card">
+      <div class="ct">🖼️ Screenshot Chat</div>
+      <div class="info" style="margin-bottom:14px">Carica screenshot della chat. L'AI estrae i messaggi e le informazioni chiave dal testo visibile.</div>
+      <div class="dz" onclick="document.getElementById('wa-fi-img').click()">
+        <input type="file" id="wa-fi-img" accept="image/*" multiple style="display:none" onchange="waLoadScreenshots(this)">
+        <div style="font-size:30px;margin-bottom:8px">🖼️</div>
+        <div style="font-size:15px;font-weight:600;margin-bottom:4px">Carica Screenshot</div>
+        <div style="font-size:13px;color:var(--text3)">JPG, PNG — anche più di uno</div>
+      </div>
+      <div id="wa-screenshots-preview"></div>
+      <button class="btn" id="wa-btn-analizza-img" style="display:none;background:linear-gradient(135deg,#25d366,#128c7e)" onclick="waAnalizzaScreenshots()">🤖 Estrai messaggi con AI</button>
+    </div>
+    <div class="success-banner" id="wa-success">✅ Conversazione importata!</div>
+  </div>
+
+  <!-- CERCA -->
+  <div id="wa-cerca" class="spanel">
+    <div class="wa-search-bar">
+      <input type="text" id="wa-search-input" placeholder="Cerca in tutte le conversazioni…" oninput="waRicerca()">
+    </div>
+    <div id="wa-search-results">
+      <div class="empty"><div class="ei">🔍</div><div class="et">Inizia a digitare per cercare</div></div>
+    </div>
+  </div>
+
+</div></div>
+
+<!-- DETTAGLIO CONVERSAZIONE (slide-in panel) -->
+<div id="wa-detail-overlay" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:200;flex-direction:column;overflow:hidden">
+  <div class="phdr">
+    <div class="phdr-left">
+      <button onclick="waCloseDetail()" style="background:transparent;border:none;color:var(--text3);font-size:22px;cursor:pointer;padding:4px;margin-right:4px">←</button>
+      <div id="wa-detail-avatar" style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0"></div>
+      <div><div style="font-size:15px;font-weight:700" id="wa-detail-name"></div><div style="font-size:11px;color:var(--text3)" id="wa-detail-meta"></div></div>
+    </div>
+    <button onclick="waAnalizzaAI()" style="padding:8px 14px;border:1px solid rgba(96,165,250,0.4);border-radius:var(--rs);background:transparent;color:var(--blue);font-size:13px;cursor:pointer;font-family:'DM Sans';font-weight:600">🤖 Analizza</button>
+  </div>
+  <div style="display:flex;gap:8px;padding:10px 16px;background:var(--bg2);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none">
+    <input type="text" id="wa-detail-search" placeholder="🔍 Cerca…" oninput="waFilterDetail()" style="flex:1;padding:9px 14px;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);color:var(--text);font-size:14px;font-family:'DM Sans';outline:none;min-width:0">
+    <button onclick="waShowTab('msgs')" id="wa-dtab-msgs" class="bts" style="font-size:13px;padding:9px 14px">💬 Messaggi</button>
+    <button onclick="waShowTab('ai')" id="wa-dtab-ai" class="bts" style="font-size:13px;padding:9px 14px">🤖 AI</button>
+    <button onclick="waShowTab('screens')" id="wa-dtab-screens" class="bts" style="font-size:13px;padding:9px 14px">🖼️ Screenshot</button>
+  </div>
+  <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px" id="wa-detail-body"></div>
+</div>
+
+<!-- PWA INSTALL BANNER -->
+<div class="pwa-banner" id="pwa-banner">
+  <div class="pwa-banner-title">📲 Installa RIKOSTRUZIONI</div>
+  <div class="pwa-banner-sub">Aggiungi l'app alla schermata home per aprirla come un'app nativa, senza browser.</div>
+  <div class="pwa-banner-row">
+    <button onclick="pwaDismiss()" style="flex:1;padding:12px;background:transparent;border:1px solid var(--border);border-radius:var(--rs);color:var(--text3);font-size:14px;cursor:pointer;font-family:'DM Sans'">Non ora</button>
+    <button onclick="pwaInstall()" style="flex:2;padding:12px;background:linear-gradient(135deg,var(--accent),#c94d24);border:none;border-radius:var(--rs);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans'">📲 Installa</button>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="bn-item active" id="bn-home" onclick="goTo('home')"><div class="bn-icon">🏠</div><div class="bn-label">Home</div></button>
+  <button class="bn-item" id="bn-archivio" onclick="goTo('archivio')"><div class="bn-icon">🏗️</div><div class="bn-label">Archivio</div></button>
+  <button class="bn-item" id="bn-spese" onclick="goTo('spese')"><div class="bn-icon">💸</div><div class="bn-label">Spese</div></button>
+  <button class="bn-item" id="bn-presenze" onclick="goTo('presenze')"><div class="bn-icon">👷</div><div class="bn-label">Presenze</div></button>
+  <button class="bn-item" id="bn-materiali" onclick="goTo('materiali')"><div class="bn-icon">🧱</div><div class="bn-label">Materiali</div></button>
+  <button class="bn-item" id="bn-foto" onclick="goTo('foto')"><div class="bn-icon">📸</div><div class="bn-label">Foto</div></button>
+  <button class="bn-item" id="bn-whatsapp" onclick="goTo('whatsapp')"><div class="bn-icon">💬</div><div class="bn-label">WhatsApp</div></button>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════════════════
+// GLOBALS
+// ══════════════════════════════════════════════════════════════════════════════
+const CANTIERI = [
+  {id:'SIRABELLA',nome:'SIRABELLA',colore:'#e85d2f'},
+  {id:'CUOMO',nome:'CUOMO DAVIDE',colore:'#f5a623'},
+  {id:'PARIOLI',nome:'VIALE PARIOLI',colore:'#4ade80'},
+  {id:'CARANNANTE',nome:'CARANNANTE TRIGORIA',colore:'#60a5fa'},
+  {id:'ZARRA',nome:'ZARRA ALESSANDRO',colore:'#a78bfa'},
+  {id:'POERIO',nome:'POERIO 14',colore:'#f472b6'},
+];
+const FASI_STD = [
+  {id:'ante',nome:'Ante Operam',icon:'🔍',colore:'#888',ordine:0},
+  {id:'demolizioni',nome:'Demolizioni',icon:'⛏️',colore:'#f87171',ordine:1},
+  {id:'strutture',nome:'Strutture',icon:'🧱',colore:'#f5a623',ordine:2},
+  {id:'impianti',nome:'Impianti',icon:'⚡',colore:'#60a5fa',ordine:3},
+  {id:'finiture',nome:'Finiture',icon:'🎨',colore:'#4ade80',ordine:4},
+  {id:'post',nome:'Post Operam',icon:'✅',colore:'#a78bfa',ordine:5},
+];
+const TIPO_MAP = {fattura_fornitore:'Fattura',ddt:'DDT',ricevuta:'Ricevuta',fattura_cliente:'Fatt. Cliente',altro:'Altro'};
+const TIPO_COLOR = {fattura_fornitore:'#e85d2f',ddt:'#60a5fa',ricevuta:'#4ade80',fattura_cliente:'#f5a623',altro:'#888'};
+
+// State
+let spDocs=[],voci=[],budgets={},spChart=null;
+let matDocs=[],materiali=[],fasiCustom=[],matFiltro='',matConfChart=null;
+let fotoList=[],fotoGalCantiere=null,fotoGalFase='',fotoCurrentFase=null,fotoGPS=null,fotoPendingFiles=[];
+let lbFotos=[],lbIdx=0;
+let activity=[];
+// Presenze
+let operai=[];
+let presenze={};
+let prCurrentDay=new Date().toISOString().slice(0,10);
+let prCurrentWeek=new Date();
+let prCurrentMonth={y:new Date().getFullYear(),m:new Date().getMonth()};
+// WhatsApp
+let waConversazioni=[];  // [{id,tipo,cantiere,nome,messaggi:[{ts,mittente,testo}],screenshots:[{b64,analisi}],aiRisultato,dataCreazione}]
+let waFiltroTipo='';
+let waFiltroCant='';
+let waCurrentConv=null;
+let waDetailTab='msgs';
+let waTipoCarica='operai';
+let waPendingTxt=null;
+let waPendingScreenshots=[];
+
+CANTIERI.forEach(c=>budgets[c.id]=0);
+
+// ── PERSIST ──
+function saveAll(){try{localStorage.setItem('rk_voci',JSON.stringify(voci));localStorage.setItem('rk_budgets',JSON.stringify(budgets));localStorage.setItem('rk_mat',JSON.stringify(materiali));localStorage.setItem('rk_fasi',JSON.stringify(fasiCustom));localStorage.setItem('rk_foto',JSON.stringify(fotoList));localStorage.setItem('rk_activity',JSON.stringify(activity));localStorage.setItem('rk_operai',JSON.stringify(operai));localStorage.setItem('rk_presenze',JSON.stringify(presenze));localStorage.setItem('rk_wa',JSON.stringify(waConversazioni));}catch(e){}}
+function loadAll(){try{const v=localStorage.getItem('rk_voci');if(v)voci=JSON.parse(v);const b=localStorage.getItem('rk_budgets');if(b)budgets=JSON.parse(b);const m=localStorage.getItem('rk_mat');if(m)materiali=JSON.parse(m);const fc=localStorage.getItem('rk_fasi');if(fc)fasiCustom=JSON.parse(fc);const f=localStorage.getItem('rk_foto');if(f)fotoList=JSON.parse(f);const a=localStorage.getItem('rk_activity');if(a)activity=JSON.parse(a);const op=localStorage.getItem('rk_operai');if(op)operai=JSON.parse(op);const pr=localStorage.getItem('rk_presenze');if(pr)presenze=JSON.parse(pr);const wa=localStorage.getItem('rk_wa');if(wa)waConversazioni=JSON.parse(wa);}catch(e){}}
+
+// ── HELPERS ──
+function fmt(n){return new Intl.NumberFormat('it-IT',{style:'currency',currency:'EUR'}).format(n||0)}
+function fmts(n){if(!n&&n!==0)return'—';if(n>=1000)return`€${(n/1000).toFixed(1)}k`;return`€${parseFloat(n).toFixed(2)}`}
+function uid(){return Math.random().toString(36).slice(2)+Date.now().toString(36)}
+function fileIcon(n){const e=n.split('.').pop()?.toLowerCase();return e==='pdf'?'📄':'🖼️'}
+function toast(msg,type=''){const t=document.getElementById('toast');t.textContent=msg;t.className=`toast ${type} show`;setTimeout(()=>t.classList.remove('show'),2800)}
+function getFasi(){return[...FASI_STD,...fasiCustom.map((f,i)=>({...f,ordine:FASI_STD.length+i}))]}
+function getFase(id){return getFasi().find(f=>f.id===id)}
+function toBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file)})}
+function addActivity(icon,text){activity.unshift({icon,text,time:new Date().toISOString()});if(activity.length>20)activity.pop();saveAll()}
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+// ── NAVIGATION ──
+function goTo(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.bn-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.getElementById('bn-'+page)?.classList.add('active');
+  window.scrollTo(0,0);
+  if(page==='home')renderHome();
+  if(page==='foto')renderFotoCantieri();
+  if(page==='presenze'){renderPresenzeOggi();prUpdateKpi();}
+  if(page==='whatsapp'){waRenderArchivio();waUpdateKpi();}
+}
+
+function showStab(el,id,goFirst){
+  if(goFirst){
+    const panel=el?.closest('.page');
+    if(panel){panel.querySelectorAll('.stab').forEach((t,i)=>{if(i===0){t.classList.add('active')}else t.classList.remove('active')});panel.querySelectorAll('.spanel').forEach((p,i)=>{if(i===0)p.classList.add('active');else p.classList.remove('active')});}
+    return;
+  }
+  const panel=el.closest('.page');
+  panel.querySelectorAll('.stab').forEach(t=>t.classList.remove('active'));
+  panel.querySelectorAll('.spanel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  if(id)document.getElementById(id)?.classList.add('active');
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// HOME
+// ══════════════════════════════════════════════════════════════════════════════
+function renderHome(){
+  document.getElementById('home-date').textContent=new Date().toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long'});
+  const totSpeso=voci.reduce((s,v)=>s+v.totale,0);
+  const totMat=materiali.length;
+  const alerts=calcolaMatAlert();
+  const totPresenzeOggi=prGetGiornata(new Date().toISOString().slice(0,10));
+  const presentiOggi=totPresenzeOggi?Object.values(totPresenzeOggi.operai||{}).filter(o=>o.stato==='presente').length:0;
+  document.getElementById('home-kpi').innerHTML=`
+    <div class="home-kpi-card"><div class="home-kpi-icon">💸</div><div><div class="home-kpi-val" style="color:var(--accent)">${fmts(totSpeso)}</div><div class="home-kpi-label">Spese registrate</div></div></div>
+    <div class="home-kpi-card"><div class="home-kpi-icon">🧱</div><div><div class="home-kpi-val" style="color:var(--purple)">${totMat}</div><div class="home-kpi-label">Tipi materiali</div></div></div>
+    <div class="home-kpi-card"><div class="home-kpi-icon">📸</div><div><div class="home-kpi-val" style="color:var(--green)">${fotoList.length}</div><div class="home-kpi-label">Foto cantiere</div></div></div>
+    <div class="home-kpi-card"><div class="home-kpi-icon">👷</div><div><div class="home-kpi-val" style="color:var(--blue)">${presentiOggi}/${operai.length}</div><div class="home-kpi-label">Presenti oggi</div></div></div>`;
+  document.querySelector('.module-grid').innerHTML=`
+    <button class="mod-btn" onclick="goTo('archivio')"><div class="mod-icon">🏗️</div><div class="mod-name">Archivio</div><div class="mod-desc">Crea cantieri e gare su Drive</div></button>
+    <button class="mod-btn" onclick="goTo('spese')"><div class="mod-icon">💸</div><div class="mod-name">Spese</div><div class="mod-desc">Fatture, DDT e budget</div></button>
+    <button class="mod-btn" onclick="goTo('materiali')"><div class="mod-icon">🧱</div><div class="mod-name">Materiali</div><div class="mod-desc">Database prezzi e alert</div></button>
+    <button class="mod-btn" onclick="goTo('foto')"><div class="mod-icon">📸</div><div class="mod-name">Foto</div><div class="mod-desc">Galleria con GPS e timeline</div></button>
+    <button class="mod-btn" onclick="goTo('presenze')" style="grid-column:span 2"><div class="mod-icon">👷</div><div class="mod-name">Presenze</div><div class="mod-desc">Registro giornaliero operai con ore normali e straordinari</div></button>`;
+
+  // Alert area
+  const critici=alerts.filter(a=>a.tipo==='critical').length;
+  const warn=alerts.filter(a=>a.tipo==='warning').length;
+  let alertHtml='';
+  if(critici>0) alertHtml+=`<span class="alert-pill alert-pill-red" onclick="goTo('materiali')" style="margin-right:6px">🚨 ${critici} critici</span>`;
+  if(warn>0) alertHtml+=`<span class="alert-pill alert-pill-yellow" onclick="goTo('materiali')">⚠️ ${warn} alert</span>`;
+  document.getElementById('home-alert-area').innerHTML=alertHtml;
+
+  // Activity
+  const acts=activity.slice(0,6);
+  document.getElementById('home-activity').innerHTML=acts.length===0
+    ?'<div style="font-size:13px;color:var(--text4);padding:8px 0">Nessuna attività recente</div>'
+    :acts.map(a=>`<div class="activity-item"><div class="activity-icon">${a.icon}</div><div class="activity-text">${a.text}</div><div class="activity-time">${new Date(a.time).toLocaleDateString('it-IT',{day:'2-digit',month:'short'})}</div></div>`).join('');
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// ARCHIVIO
+// ══════════════════════════════════════════════════════════════════════════════
+let tipoArc='corso';
+function setTipoArc(t,el){tipoArc=t;document.querySelectorAll('#page-archivio .tb').forEach(b=>b.classList.remove('active'));el.classList.add('active')}
+function logArc(id,msg,cls){const el=document.getElementById('log-'+id);el.style.display='block';const d=document.createElement('div');d.className='ll '+(cls||'li');const t=new Date().toLocaleTimeString('it-IT');d.innerHTML=`<span class="lt">${t}</span>${msg}`;el.appendChild(d);el.scrollTop=el.scrollHeight}
+function clearLogArc(id){const el=document.getElementById('log-'+id);el.innerHTML='';el.style.display='none';const done=document.getElementById('done-'+id);if(done)done.style.display='none'}
+async function callDrive(prompt){try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,mcp_servers:[{type:'url',url:'https://drivemcp.googleapis.com/mcp/v1',name:'gdrive'}],messages:[{role:'user',content:prompt}]})});const data=await r.json();return data.content?.filter(b=>b.type==='text').map(b=>b.text).join('')||''}catch{return''}}
+async function mkFolder(name,parentId){const r=await callDrive(`Use Google Drive MCP to create a folder named "${name}" inside parent "${parentId}". Return ONLY the new folder ID.`);return r.match(/[a-zA-Z0-9_-]{25,}/)?.[0]||null}
+const ARC_IDS={in_corso:'1df_YLsfcAyvR5BlP2irtYKqHLhUyvNX2',completati:'1v0ls69w_B-WevxPbf0CQyYwhlpdMU1XL',gare:'1rGDAlR9MoRxkAD9605FzvXEKg0Y-fyZP',mastrino:'1xsL9XpX-C3uNRgsmAbRHNWmPsF39tKzFaJiyMhJfJPY'};
+const ARC_STRUTTURA=[{n:'01 - Progetto',s:['Elaborati Grafici','Computi Metrici']},{n:'02 - Contratto',s:[]},{n:'03 - Direzione Lavori',s:[]},{n:'04 - Comunicazioni',s:['Email',{n:'WhatsApp - Cliente',s:['Messaggi Esportati','Documenti e Foto Ricevuti']},{n:'WhatsApp - Direzione Lavori',s:['Messaggi Esportati','Documenti e Foto Ricevuti']},'PEC e Raccomandate']},{n:'05 - Offerte Fornitori',s:[]},{n:'06 - Offerte al Cliente',s:['Offerte in Corso','Offerte Accettate']},{n:'07 - CILA e Documenti Amministrativi',s:[]},{n:'08 - SAL e Contabilità di Cantiere',s:[]},{n:'10 - Foto e Documentazione Visiva',s:['Ante Operam',{n:'In Corso',s:['Demolizioni','Strutture e Murature','Impianti','Finiture']},'Post Operam']},{n:'11 - Sicurezza',s:[]},{n:'12 - Mastrino Pagamenti Cliente',s:[]}];
+async function buildCantiere(nome,parentId,logId){logArc(logId,`🚀 Creazione: <strong>${nome.toUpperCase()}</strong>`,'ls');const cid=await mkFolder(nome.toUpperCase(),parentId);if(!cid){logArc(logId,'❌ Errore');return false}logArc(logId,'✓ Cartella principale','lk');for(const item of ARC_STRUTTURA){await sleep(180);const sid=await mkFolder(item.n,cid);logArc(logId,`  ✓ ${item.n}`);if(sid&&item.s?.length){for(const s of item.s){await sleep(100);const sn=typeof s==='string'?s:s.n;const s2=await mkFolder(sn,sid);logArc(logId,`    └ ${sn}`);if(s2&&typeof s==='object'&&s.s?.length){for(const s3 of s.s){await sleep(70);await mkFolder(s3,s2);logArc(logId,`      └ ${s3}`)}}}}}await callDrive(`Use Google Drive MCP to copy file "${ARC_IDS.mastrino}" to parent "${cid}" with title "Mastrino Pagamenti - ${nome.toUpperCase()}".`);logArc(logId,'  📊 Google Sheet copiato','lk');logArc(logId,`🎉 ${nome.toUpperCase()} completato!`,'lk');return true}
+async function creaCantiere(){const nome=document.getElementById('nc-nome').value.trim();if(!nome)return toast('⚠️ Inserisci il nome');const btn=document.getElementById('btn-nc');btn.disabled=true;btn.innerHTML='<span class="spin">⏳</span> Creazione…';clearLogArc('nc');const ok=await buildCantiere(nome,tipoArc==='corso'?ARC_IDS.in_corso:ARC_IDS.completati,'nc');if(ok){document.getElementById('done-nc').style.display='block';addActivity('🏗️',`Cantiere ${nome.toUpperCase()} creato su Drive`)}btn.disabled=false;btn.innerHTML='🏗️ Crea Cantiere su Drive'}
+async function creaGara(){const nome=document.getElementById('ng-nome').value.trim();if(!nome)return toast('⚠️ Inserisci il nome');const btn=document.getElementById('btn-ng');btn.disabled=true;btn.innerHTML='<span class="spin">⏳</span> Creazione…';clearLogArc('ng');const gid=await mkFolder(nome,ARC_IDS.gare);if(!gid){btn.disabled=false;btn.innerHTML='🏆 Crea Gara su Drive';return}for(const s of['Documentazione Amministrativa','Offerta Tecnica','Offerta Economica','Esito']){await sleep(140);await mkFolder(s,gid);logArc('ng',`  ✓ ${s}`)}document.getElementById('done-ng').style.display='block';addActivity('🏆',`Gara "${nome}" creata`);btn.disabled=false;btn.innerHTML='🏆 Crea Gara su Drive'}
+async function promuoviGara(){const nome=document.getElementById('pg-nome').value.trim();if(!nome)return toast('⚠️ Inserisci il nome');const btn=document.getElementById('btn-pg');btn.disabled=true;btn.innerHTML='<span class="spin">⏳</span>…';clearLogArc('pg');const ok=await buildCantiere(nome,ARC_IDS.in_corso,'pg');if(ok){document.getElementById('done-pg').style.display='block';addActivity('🚀',`Gara promossa a cantiere: ${nome.toUpperCase()}`)}btn.disabled=false;btn.innerHTML='🚀 Promuovi a Cantiere'}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// SPESE
+// ══════════════════════════════════════════════════════════════════════════════
+function spOnDrop(e){e.preventDefault();document.getElementById('sp-dz').classList.remove('drag');spAddFiles(e.dataTransfer.files)}
+function spOnDragOver(e){e.preventDefault();document.getElementById('sp-dz').classList.add('drag')}
+function spOnDragLeave(){document.getElementById('sp-dz').classList.remove('drag')}
+function spAddFiles(files){Array.from(files).forEach(f=>{spDocs.push({id:uid(),file:f,name:f.name,status:'pending',result:null})});spRenderDocs()}
+async function spAnalyze(id){const e=spDocs.find(d=>d.id===id);if(!e)return;e.status='analyzing';spRenderDocs();const b64=await toBase64(e.file);const mt=e.file.type||'image/jpeg';const isPdf=mt==='application/pdf',isImg=mt.startsWith('image/');const prompt=`Sei un assistente contabile per RIKOSTRUZIONI SRL. Analizza questo documento e rispondi SOLO in JSON: {"tipo":"fattura_fornitore|ddt|ricevuta|fattura_cliente|altro","fornitore":"...","numero":"...","data":"YYYY-MM-DD","imponibile":0,"iva":0,"totale":0,"descrizione":"...","cantiere":"ID_o_null","categoria":"materiali|manodopera|noli|trasporti|professionisti|altro","confidenza_cantiere":0,"note":"..."}. Cantieri: SIRABELLA,CUOMO(=CUOMO DAVIDE),PARIOLI(=VIALE PARIOLI),CARANNANTE,ZARRA,POERIO.`;
+const mc=(isPdf||isImg)?[{type:isPdf?'document':'image',source:{type:'base64',media_type:mt,data:b64.split(',')[1]}},{type:'text',text:prompt}]:prompt;
+try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,messages:[{role:'user',content:mc}]})});const data=await r.json();const text=data.content?.filter(b=>b.type==='text').map(b=>b.text).join('')||'';const res=JSON.parse(text.replace(/```json|```/g,'').trim());e.result={...res,_c:res.cantiere,_cat:res.categoria};e.status='read'}catch{e.status='error'}spRenderDocs()}
+async function spAnalyzeAll(){const btn=document.getElementById('sp-btn-all');btn.disabled=true;btn.innerHTML='<span class="spin">⏳</span> Analisi…';for(const d of spDocs.filter(d=>d.status==='pending'))await spAnalyze(d.id);btn.disabled=false;btn.innerHTML='🤖 Analizza tutti'}
+function spConfirm(id){const e=spDocs.find(d=>d.id===id);if(!e?.result)return;const r=e.result;voci.push({id:e.id,data:r.data,tipo:r.tipo,fornitore:r.fornitore,numero:r.numero,descrizione:r.descrizione,cantiere:r._c||r.cantiere,categoria:r._cat||r.categoria,imponibile:parseFloat(r.imponibile)||0,iva:parseFloat(r.iva)||0,totale:parseFloat(r.totale)||0,note:r.note||'',fileName:e.name});e.status='confirmed';addActivity('📄',`Documento ${e.name} registrato`);saveAll();spRenderDocs();spUpdateKpi()}
+function spRenderDocs(){const list=document.getElementById('sp-docs-list');const empty=document.getElementById('sp-docs-empty');const brow=document.getElementById('sp-batch');const p=spDocs.filter(d=>d.status==='pending').length;empty.style.display=spDocs.length===0?'block':'none';brow.style.display=spDocs.length>0&&p>0?'block':'none';if(p>0)document.getElementById('sp-btn-all').textContent=`🤖 Analizza tutti (${p})`;
+list.innerHTML=spDocs.map(e=>{const r=e.result;let sh='',acts='';if(e.status==='pending'){sh='<div style="font-size:13px;color:var(--text3)">In attesa</div>';acts=`<button style="padding:7px 11px;border:1px solid rgba(232,93,47,0.4);border-radius:8px;background:transparent;color:var(--accent);font-size:12px;cursor:pointer;font-family:DM Sans" onclick="spAnalyze('${e.id}')">🤖</button>`}
+else if(e.status==='analyzing')sh='<div style="font-size:13px;color:var(--accent2)">🤖 Analisi…</div>';
+else if(e.status==='error')sh='<div style="font-size:13px;color:var(--red)">❌ Errore</div>';
+else if(e.status==='confirmed')sh='<div style="font-size:13px;color:var(--green)">✅ Registrato</div>';
+else if(r){const cant=CANTIERI.find(c=>c.id===r._c);sh=`<div class="chips" style="margin-top:5px"><span class="chip c-r">${TIPO_MAP[r.tipo]||r.tipo}</span><span class="chip c-g">${fmt(r.totale)}</span><span class="chip c-gray">${r.fornitore||'—'}</span></div><div style="font-size:11px;color:var(--text3)">🏗️ ${cant?cant.nome:(r._c||'Cantiere ?')}</div>`;acts=`<button style="padding:7px 11px;border:1px solid rgba(74,222,128,0.4);border-radius:8px;background:transparent;color:var(--green);font-size:12px;cursor:pointer;font-family:DM Sans" onclick="spConfirm('${e.id}')">✅</button>`}
+if(['confirmed','error'].includes(e.status))acts+=`<button style="padding:7px 10px;border:1px solid var(--border2);border-radius:8px;background:transparent;color:var(--text4);font-size:12px;cursor:pointer" onclick="spDocs=spDocs.filter(d=>d.id!=='${e.id}');spRenderDocs()">✕</button>`;
+return`<div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--rs);padding:13px 15px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px"><div style="font-size:22px;flex-shrink:0">${fileIcon(e.name)}</div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:3px">${e.name}</div>${sh}</div><div style="display:flex;flex-direction:column;gap:5px">${acts}</div></div>`}).join('')}
+function spUpdateKpi(){const t=voci.reduce((s,v)=>s+v.totale,0);document.getElementById('sp-hk-speso').textContent=fmts(t);document.getElementById('sp-hk-docs').textContent=voci.length}
+function renderVoci(){const empty=document.getElementById('sp-voci-empty');const list=document.getElementById('sp-voci-list');empty.style.display=voci.length===0?'block':'none';list.innerHTML=voci.map(v=>{const tc=TIPO_COLOR[v.tipo]||'#888';const cant=CANTIERI.find(c=>c.id===v.cantiere);return`<div class="voce-row"><div class="voce-body"><div class="voce-main">${v.fornitore||'—'} — ${v.descrizione||'—'}</div><div class="voce-meta">${v.data||''} · ${cant?cant.nome:'⚠️'} · ${v.categoria||'—'}</div></div><div class="voce-amount"><div class="voce-total">${fmt(v.totale)}</div><div class="voce-iva">IVA ${fmt(v.iva)}</div></div><button style="padding:5px 9px;background:transparent;border:1px solid var(--border2);border-radius:6px;color:var(--text4);cursor:pointer;font-size:12px" onclick="voci=voci.filter(v=>v.id!=='${v.id}');saveAll();spUpdateKpi();renderVoci()">✕</button></div>`}).join('')}
+function renderSpeseDash(){const t=voci.reduce((s,v)=>s+v.totale,0);const tb=Object.values(budgets).reduce((s,v)=>s+v,0);const r=tb-t;const empty=document.getElementById('sp-dash-empty');const content=document.getElementById('sp-dash-content');if(voci.length===0){empty.style.display='block';content.style.display='none';return}empty.style.display='none';content.style.display='block';document.getElementById('sp-d-speso').textContent=fmts(t);document.getElementById('sp-d-budget').textContent=fmts(tb);const dr=document.getElementById('sp-d-residuo');dr.textContent=fmts(r);dr.style.color=r>=0?'var(--green)':'var(--red)';
+const cd=CANTIERI.filter(c=>voci.some(v=>v.cantiere===c.id)||budgets[c.id]>0);document.getElementById('sp-prog').innerHTML=cd.map(c=>{const sp=voci.filter(v=>v.cantiere===c.id).reduce((s,v)=>s+v.totale,0);const bg=budgets[c.id]||0;const pct=bg>0?Math.min((sp/bg)*100,100):0;const fc=pct>90?'var(--red)':pct>70?'var(--yellow)':c.colore;return`<div class="prog-item"><div class="prog-head"><span style="color:var(--text2);font-weight:500">${c.nome}</span><span style="font-family:'DM Mono';font-size:11px;color:var(--text3)"><span style="color:${c.colore}">${fmts(sp)}</span> / ${fmts(bg)}</span></div><div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${fc}"></div></div></div>`}).join('');
+if(spChart)spChart.destroy();spChart=new Chart(document.getElementById('sp-chart'),{type:'bar',data:{labels:cd.map(c=>c.nome.split(' ')[0]),datasets:[{label:'Budget',data:cd.map(c=>budgets[c.id]||0),backgroundColor:'#1e1e1e',borderRadius:4},{label:'Speso',data:cd.map(c=>voci.filter(v=>v.cantiere===c.id).reduce((s,v)=>s+v.totale,0)),backgroundColor:cd.map(c=>c.colore),borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#555',font:{size:11}}}},scales:{x:{ticks:{color:'#444',font:{size:9}},grid:{color:'#111'}},y:{ticks:{color:'#444',font:{size:9},callback:v=>fmts(v)},grid:{color:'#161616'}}}}})}
+function renderBudget(){document.getElementById('sp-budget-list').innerHTML=CANTIERI.map(c=>{const sp=voci.filter(v=>v.cantiere===c.id).reduce((s,v)=>s+v.totale,0);const bg=budgets[c.id]||0;const pct=bg>0?Math.min((sp/bg)*100,100):0;const fc=pct>90?'var(--red)':pct>70?'var(--yellow)':c.colore;return`<div class="card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div style="width:10px;height:10px;border-radius:50%;background:${c.colore}"></div><div style="font-size:14px;font-weight:600">${c.nome}</div></div><label class="fl" style="margin-top:0">Budget (€)</label><input class="fi" type="number" value="${budgets[c.id]||''}" placeholder="es. 100000" style="margin-bottom:10px" onchange="budgets['${c.id}']=parseFloat(this.value)||0;saveAll();spUpdateKpi()"><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3);margin-bottom:5px"><span>Speso: <span style="color:${c.colore}">${fmt(sp)}</span></span><span style="color:${bg-sp>=0?'var(--green)':'var(--red)'}">Residuo: ${fmt(bg-sp)}</span></div><div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${fc}"></div></div></div>`}).join('')}
+function spExportCSV(){if(voci.length===0)return toast('Nessuna voce');const h=['Data','Tipo','Fornitore','Numero','Descrizione','Cantiere','Categoria','Imponibile','IVA','Totale','Note'];const rows=voci.map(v=>[v.data,TIPO_MAP[v.tipo]||v.tipo,v.fornitore,v.numero,v.descrizione,CANTIERI.find(c=>c.id===v.cantiere)?.nome||v.cantiere||'',v.categoria||'',v.imponibile,v.iva,v.totale,v.note||'']);const csv=[h,...rows].map(r=>r.map(c=>`"${String(c||'').replace(/"/g,'""')}"`).join(',')).join('\n');const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`RIKO_Spese_${new Date().toISOString().slice(0,10)}.csv`;a.click();URL.revokeObjectURL(url)}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// MATERIALI
+// ══════════════════════════════════════════════════════════════════════════════
+function matOnDrop(e){e.preventDefault();document.getElementById('mat-dz').classList.remove('drag');matAddFiles(e.dataTransfer.files)}
+function matOnDragOver(e){e.preventDefault();document.getElementById('mat-dz').classList.add('drag')}
+function matOnDragLeave(){document.getElementById('mat-dz').classList.remove('drag')}
+function matAddFiles(files){Array.from(files).forEach(f=>{matDocs.push({id:uid(),file:f,name:f.name,status:'pending',extracted:null})});matRenderDocs()}
+async function matAnalyze(id){const e=matDocs.find(d=>d.id===id);if(!e)return;e.status='analyzing';matRenderDocs();const b64=await toBase64(e.file);const mt=e.file.type||'image/jpeg';const isPdf=mt==='application/pdf',isImg=mt.startsWith('image/');
+const prompt=`Sei un assistente contabile per RIKOSTRUZIONI SRL. Analizza questo documento ed estrai TUTTI i materiali. Per ogni riga: nome, categoria (tra: Muratura e Laterizi/Cemento e Calcestruzzo/Ferro e Acciaio/Legno e Derivati/Impianti Elettrici/Impianti Idraulici/Rivestimenti e Pavimenti/Isolamento/Serramenti/Intonaci e Pitture/Altro), fornitore, quantita_ordinata, quantita_ricevuta, um, prezzo_unitario, totale_riga, data (YYYY-MM-DD), numero_doc, cantiere (null). Rispondi SOLO JSON: {"tipo_doc":"fattura|bolla|ricevuta","fornitore":"...","numero_doc":"...","data":"...","totale_documento":0,"materiali":[...]}`;
+const mc=(isPdf||isImg)?[{type:isPdf?'document':'image',source:{type:'base64',media_type:mt,data:b64.split(',')[1]}},{type:'text',text:prompt}]:prompt;
+try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2000,messages:[{role:'user',content:mc}]})});const data=await r.json();const text=data.content?.filter(b=>b.type==='text').map(b=>b.text).join('')||'';e.extracted=JSON.parse(text.replace(/```json|```/g,'').trim());e.status='extracted'}catch{e.status='error'}matRenderDocs()}
+async function matAnalyzeAll(){const btn=document.getElementById('mat-btn-all');btn.disabled=true;btn.innerHTML='<span class="spin">⏳</span> Estrazione…';for(const d of matDocs.filter(d=>d.status==='pending'))await matAnalyze(d.id);btn.disabled=false;btn.innerHTML='🤖 Estrai da tutti'}
+function matRenderDocs(){const list=document.getElementById('mat-docs-list');const empty=document.getElementById('mat-docs-empty');const brow=document.getElementById('mat-batch');const p=matDocs.filter(d=>d.status==='pending').length;empty.style.display=matDocs.length===0?'block':'none';brow.style.display=matDocs.length>0&&p>0?'block':'none';
+list.innerHTML=matDocs.map(e=>{const ex=e.extracted;let sh='',acts='';if(e.status==='pending'){sh='<div style="font-size:13px;color:var(--text3)">In attesa</div>';acts=`<button style="padding:7px 11px;border:1px solid rgba(232,93,47,0.4);border-radius:8px;background:transparent;color:var(--accent);font-size:12px;cursor:pointer;font-family:DM Sans" onclick="matAnalyze('${e.id}')">🤖</button>`}
+else if(e.status==='analyzing')sh='<div style="font-size:13px;color:var(--accent2)">🤖 Estrazione…</div>';
+else if(e.status==='error')sh='<div style="font-size:13px;color:var(--red)">❌ Errore</div>';
+else if(e.status==='imported')sh=`<div style="font-size:13px;color:var(--green)">✅ ${ex?.materiali?.length||0} materiali importati</div>`;
+else if(ex)sh=`<div class="chips" style="margin-top:5px"><span class="chip c-b">${ex.materiali?.length||0} materiali</span><span class="chip c-g">${fmt(ex.totale_documento)}</span><span class="chip c-gray">${ex.fornitore||'—'}</span></div>`;
+if(e.status==='extracted')acts=`<button style="padding:7px 11px;border:1px solid rgba(74,222,128,0.4);border-radius:8px;background:transparent;color:var(--green);font-size:12px;cursor:pointer;font-family:DM Sans" onclick="matOpenModal('${e.id}')">📥</button>`;
+if(['imported','error'].includes(e.status))acts+=`<button style="padding:7px 10px;border:1px solid var(--border2);border-radius:8px;background:transparent;color:var(--text4);font-size:12px;cursor:pointer" onclick="matDocs=matDocs.filter(d=>d.id!=='${e.id}');matRenderDocs()">✕</button>`;
+return`<div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--rs);padding:13px 15px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px"><div style="font-size:22px;flex-shrink:0">${fileIcon(e.name)}</div><div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:3px">${e.name}</div>${sh}</div><div style="display:flex;flex-direction:column;gap:5px">${acts}</div></div>`}).join('')}
+function matOpenModal(docId){const e=matDocs.find(d=>d.id===docId);if(!e?.extracted)return;const ex=e.extracted;document.getElementById('mat-modal-title').textContent=`${ex.fornitore||'—'}`;document.getElementById('mat-modal-body').innerHTML=`<label class="fl" style="margin-top:0">Cantiere</label><select class="fi" id="mat-modal-cant" style="margin-bottom:14px"><option value="">— Seleziona —</option>${CANTIERI.map(c=>`<option value="${c.id}">${c.nome}</option>`).join('')}</select><div style="font-size:12px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px">${ex.materiali?.length||0} Materiali</div>${(ex.materiali||[]).map(m=>`<div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:11px;margin-bottom:7px"><div style="font-size:13px;font-weight:600;margin-bottom:4px">${m.nome}</div><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3)"><span>${m.categoria}</span><span style="font-family:'DM Mono';color:var(--accent)">${fmts(m.prezzo_unitario)}/${m.um}</span></div><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3)"><span>Qtà: ${m.quantita_ordinata} ${m.um}</span><span style="font-family:'DM Mono'">${fmt(m.totale_riga)}</span></div></div>`).join('')}<button class="btn" style="margin-top:8px" onclick="matImporta('${docId}')">✅ Importa nel Database</button>`;
+document.getElementById('mat-modal-overlay').style.display='flex'}
+function matCloseModal(){document.getElementById('mat-modal-overlay').style.display='none'}
+function matImporta(docId){const e=matDocs.find(d=>d.id===docId);if(!e?.extracted)return;const cantiere=document.getElementById('mat-modal-cant').value;const ex=e.extracted;(ex.materiali||[]).forEach(m=>{materiali.push({id:uid(),nome:m.nome,categoria:m.categoria,fornitore:m.fornitore||ex.fornitore,quantita_ordinata:parseFloat(m.quantita_ordinata)||0,quantita_ricevuta:parseFloat(m.quantita_ricevuta)||0,um:m.um,prezzo_unitario:parseFloat(m.prezzo_unitario)||0,totale_riga:parseFloat(m.totale_riga)||0,prezzo_preventivato:null,data:m.data||ex.data,numero_doc:m.numero_doc||ex.numero_doc,cantiere:cantiere||null,note:m.note||''})});e.status='imported';addActivity('📦',`${ex.materiali?.length||0} materiali importati da ${ex.fornitore||e.name}`);saveAll();matCloseModal();matRenderDocs();matUpdateKpi();const alerts=aggiornaMatAlert();const docAlerts=alerts.filter(a=>(ex.materiali||[]).some(m=>m.nome.toLowerCase()===a.materiale.toLowerCase()));if(docAlerts.length>0){const first=docAlerts[0];toast(`${first.tipo==='critical'?'🚨':'⚠️'} ${first.materiale}: ${first.diff>0?'+':''}${first.diff.toFixed(1)}% vs precedente`,first.tipo==='critical'?'critical':'')}else toast(`✅ ${ex.materiali?.length||0} materiali importati`,'ok')}
+function matUpdateKpi(){const t=materiali.reduce((s,m)=>s+m.totale_riga,0);const n=[...new Set(materiali.map(m=>m.nome.toLowerCase()))].length;document.getElementById('mat-hk-n').textContent=n;document.getElementById('mat-hk-tot').textContent=fmts(t)}
+function setMatFilter(el,val){matFiltro=val;document.querySelectorAll('#mat-filter-row .filt').forEach(f=>f.classList.remove('active'));el.classList.add('active');renderMatDB()}
+function renderMatDB(){const search=(document.getElementById('mat-search')?.value||'').toLowerCase();const fr=document.getElementById('mat-filter-row');const cp=[...new Set(materiali.map(m=>m.cantiere).filter(Boolean))];fr.innerHTML=`<button class="filt ${matFiltro===''?'active':''}" onclick="setMatFilter(this,'')">Tutti</button>`+cp.map(cid=>{const c=CANTIERI.find(x=>x.id===cid);return`<button class="filt ${matFiltro===cid?'active':''}" onclick="setMatFilter(this,'${cid}')">${c?c.nome:cid}</button>`}).join('');
+let filt=materiali.filter(m=>(!matFiltro||m.cantiere===matFiltro)&&(!search||m.nome.toLowerCase().includes(search)||(m.fornitore||'').toLowerCase().includes(search)));
+const grouped={};filt.forEach(m=>{const k=m.nome.toLowerCase();if(!grouped[k])grouped[k]=[];grouped[k].push(m)});
+const entries=Object.values(grouped).sort((a,b)=>b.reduce((s,m)=>s+m.totale_riga,0)-a.reduce((s,m)=>s+m.totale_riga,0));
+const empty=document.getElementById('mat-db-empty');const list=document.getElementById('mat-db-list');empty.style.display=entries.length===0?'block':'none';list.style.display=entries.length===0?'none':'block';
+list.innerHTML=entries.map(group=>{const first=group[0];const prezzi=group.map(m=>m.prezzo_unitario).filter(p=>p>0);const pm=prezzi.length?prezzi.reduce((s,p)=>s+p,0)/prezzi.length:0;const tot=group.reduce((s,m)=>s+m.totale_riga,0);const histHtml=group.slice().reverse().slice(0,4).map(m=>{const cant=CANTIERI.find(c=>c.id===m.cantiere);return`<div class="hist-item"><div><div class="hist-price">${fmts(m.prezzo_unitario)}/${m.um}</div><div class="hist-meta">${m.data||'—'} · ${cant?cant.nome:'—'}</div></div><div style="text-align:right"><div class="hist-meta">${m.fornitore||'—'}</div><div class="hist-meta">${m.quantita_ricevuta} ${m.um}</div></div></div>`}).join('');
+return`<div class="mat-row"><div class="mat-header"><div style="flex:1;min-width:0"><div class="mat-name">${first.nome}</div><div class="mat-cat">${first.categoria||'—'}</div><div class="chips">${prezzi.length?`<span class="chip c-r">${fmts(Math.min(...prezzi))}–${fmts(Math.max(...prezzi))}/${first.um}</span>`:''}<span class="chip c-gray">${group.length} acquisti</span></div><div style="font-size:11px;color:var(--text3);font-family:'DM Mono'">Tot: ${fmt(tot)}</div></div><div style="text-align:right;flex-shrink:0"><div style="font-size:15px;font-weight:700;color:var(--accent)">${fmts(pm)}</div><div style="font-size:11px;color:var(--text3)">medio/${first.um}</div></div></div><button style="background:transparent;border:none;color:var(--text4);font-size:12px;cursor:pointer;padding:5px 0;font-family:'DM Sans'" onclick="const d=this.nextElementSibling;d.style.display=d.style.display==='block'?'none':'block';this.textContent=d.style.display==='block'?'▲ Chiudi':'▼ Storico (${group.length})'">▼ Storico (${group.length})</button><div class="mat-detail">${histHtml}<button style="background:transparent;border:1px solid var(--red);border-radius:8px;color:var(--red);padding:7px 12px;font-size:12px;cursor:pointer;margin-top:8px;font-family:'DM Sans'" onclick="materiali=materiali.filter(m=>m.nome.toLowerCase()!=='${first.nome.toLowerCase().replace(/'/g,"\\'")}');saveAll();matUpdateKpi();renderMatDB()">🗑️ Elimina tutti</button></div></div>`}).join('')}
+function renderMatConf(){const empty=document.getElementById('mat-conf-empty');const content=document.getElementById('mat-conf-content');if(materiali.length===0){empty.style.display='block';content.style.display='none';return}empty.style.display='none';content.style.display='block';const t=materiali.reduce((s,m)=>s+m.totale_riga,0);const n=[...new Set(materiali.map(m=>m.nome.toLowerCase()))].length;const f=[...new Set(materiali.map(m=>m.fornitore).filter(Boolean))].length;document.getElementById('mat-c-tot').textContent=fmt(t);document.getElementById('mat-c-n').textContent=n;document.getElementById('mat-c-f').textContent=f;
+const spese=CANTIERI.map(c=>({...c,tot:materiali.filter(m=>m.cantiere===c.id).reduce((s,m)=>s+m.totale_riga,0)})).filter(c=>c.tot>0).sort((a,b)=>b.tot-a.tot);
+document.getElementById('mat-conf-prog').innerHTML=spese.map(c=>{const pct=t>0?(c.tot/t*100):0;return`<div class="prog-item"><div class="prog-head"><span style="color:var(--text2);font-weight:500">${c.nome}</span><span style="font-family:'DM Mono';font-size:11px;color:var(--text3)"><span style="color:${c.colore}">${fmt(c.tot)}</span> (${pct.toFixed(0)}%)</span></div><div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${c.colore}"></div></div></div>`}).join('');
+const gr={};materiali.forEach(m=>{const k=m.nome.toLowerCase();if(!gr[k])gr[k]={nome:m.nome,cat:m.categoria,tot:0};gr[k].tot+=m.totale_riga});const top=Object.values(gr).sort((a,b)=>b.tot-a.tot).slice(0,8);document.getElementById('mat-top').innerHTML=top.map((m,i)=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px"><div style="display:flex;align-items:center;gap:8px"><span style="color:var(--text4);font-family:'DM Mono';font-size:11px;width:14px">${i+1}</span><div><div style="color:var(--text2);font-weight:500">${m.nome}</div><div style="color:var(--text4);font-size:11px">${m.cat||'—'}</div></div></div><span style="font-family:'DM Mono';font-weight:700;color:var(--accent)">${fmt(m.tot)}</span></div>`).join('')}
+function calcolaMatAlert(){const critica=parseFloat(document.getElementById('soglia-critica')?.value)||20;const warning=parseFloat(document.getElementById('soglia-warning')?.value)||10;const alerts=[];const grouped={};materiali.forEach(m=>{const k=m.nome.toLowerCase();if(!grouped[k])grouped[k]=[];grouped[k].push(m)});Object.values(grouped).forEach(g=>{const cp=g.filter(m=>m.prezzo_unitario>0).sort((a,b)=>new Date(a.data||0)-new Date(b.data||0));if(cp.length<2)return;const last=cp[cp.length-1];const prev=cp[cp.length-2];if(!prev.prezzo_unitario)return;const diff=((last.prezzo_unitario-prev.prezzo_unitario)/prev.prezzo_unitario)*100;if(Math.abs(diff)<warning)return;const tipo=Math.abs(diff)>=critica?'critical':'warning';const cant=CANTIERI.find(c=>c.id===last.cantiere);alerts.push({tipo,materiale:last.nome,categoria:last.categoria,fornitore_old:prev.fornitore||'—',fornitore_new:last.fornitore||'—',prezzo_old:prev.prezzo_unitario,prezzo_new:last.prezzo_unitario,um:last.um,diff,data_old:prev.data||'—',data_new:last.data||'—',cantiere:cant?cant.nome:(last.cantiere||'—')})});return alerts.sort((a,b)=>{if(a.tipo==='critical'&&b.tipo!=='critical')return-1;if(b.tipo==='critical'&&a.tipo!=='critical')return 1;return Math.abs(b.diff)-Math.abs(a.diff)})}
+function aggiornaMatAlert(){const alerts=calcolaMatAlert();const n=alerts.length;const badge=document.getElementById('mat-alert-badge');if(n>0){badge.textContent=n;badge.style.display='block'}else badge.style.display='none';const stab=document.getElementById('stab-alert');if(alerts.filter(a=>a.tipo==='critical').length>0)stab.style.color='var(--red)';else if(n>0)stab.style.color='var(--yellow)';else stab.style.color='';return alerts}
+function renderMatAlerts(){const alerts=calcolaMatAlert();const list=document.getElementById('mat-alert-list');const empty=document.getElementById('mat-alert-empty');const sum=document.getElementById('mat-alert-sum');const cr=alerts.filter(a=>a.tipo==='critical').length;const wr=alerts.filter(a=>a.tipo==='warning').length;empty.style.display=alerts.length===0?'block':'none';list.style.display=alerts.length===0?'none':'block';if(alerts.length>0){sum.style.display='block';sum.innerHTML=`<div style="display:flex;gap:8px">${cr>0?`<div style="flex:1;padding:12px;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);border-radius:var(--rs);text-align:center"><div style="font-size:20px;font-weight:700;color:var(--red)">${cr}</div><div style="font-size:11px;color:var(--text3)">🔴 Critici</div></div>`:''} ${wr>0?`<div style="flex:1;padding:12px;background:rgba(250,204,21,0.08);border:1px solid rgba(250,204,21,0.3);border-radius:var(--rs);text-align:center"><div style="font-size:20px;font-weight:700;color:var(--yellow)">${wr}</div><div style="font-size:11px;color:var(--text3)">🟡 Attenzione</div></div>`:''}</div>`}else sum.style.display='none';
+list.innerHTML=alerts.map(a=>{const sign=a.diff>0?'+':'';const dc=a.diff>0?'var(--red)':'var(--green)';return`<div class="alert-item ${a.tipo}"><div class="alert-icon">${a.tipo==='critical'?'🚨':'⚠️'}</div><div class="alert-body"><div class="alert-title ${a.tipo}">${a.materiale}</div><div class="alert-desc"><span style="font-family:'DM Mono';font-weight:700;color:${dc}">${sign}${a.diff.toFixed(1)}%</span> rispetto all'acquisto precedente</div><div style="display:flex;align-items:center;gap:8px;margin:7px 0;flex-wrap:wrap"><div style="background:var(--bg);border-radius:7px;padding:5px 10px;font-family:'DM Mono';font-size:12px"><span style="font-size:10px;color:var(--text3);display:block">PRIMA</span>€${parseFloat(a.prezzo_old).toFixed(3)}/${a.um}</div><span style="color:var(--text3)">→</span><div style="background:var(--bg);border:1px solid ${a.tipo==='critical'?'rgba(248,113,113,0.4)':'rgba(250,204,21,0.3)'};border-radius:7px;padding:5px 10px;font-family:'DM Mono';font-size:12px"><span style="font-size:10px;color:var(--text3);display:block">ADESSO</span><span style="color:${dc};font-weight:700">€${parseFloat(a.prezzo_new).toFixed(3)}/${a.um}</span></div></div><div class="alert-meta">${a.fornitore_old!==a.fornitore_new?`Fornitore: ${a.fornitore_old} → ${a.fornitore_new}<br>`:`Fornitore: ${a.fornitore_new}<br>`}Date: ${a.data_old} → ${a.data_new} · ${a.cantiere}</div></div></div>`}).join('')}
+function matAggiungiManuale(){const nome=document.getElementById('m-nome').value.trim();if(!nome)return toast('⚠️ Inserisci il nome');const pr=parseFloat(document.getElementById('m-prezzo').value)||0;const qo=parseFloat(document.getElementById('m-qord').value)||0;const qr=parseFloat(document.getElementById('m-qric').value)||qo;materiali.push({id:uid(),nome,categoria:document.getElementById('m-cat').value,fornitore:document.getElementById('m-forn').value,quantita_ordinata:qo,quantita_ricevuta:qr,um:document.getElementById('m-um').value,prezzo_unitario:pr,totale_riga:pr*qr,prezzo_preventivato:null,data:document.getElementById('m-data').value||new Date().toISOString().slice(0,10),cantiere:document.getElementById('m-cant').value,note:''});saveAll();matUpdateKpi();aggiornaMatAlert();addActivity('✏️',`Materiale "${nome}" aggiunto manualmente`);document.getElementById('mat-success').style.display='block';setTimeout(()=>document.getElementById('mat-success').style.display='none',2500);['m-nome','m-forn','m-prezzo','m-qord','m-qric','m-data'].forEach(id=>{document.getElementById(id).value=''})}
+function matExportCSV(){if(materiali.length===0)return toast('Nessun materiale');const h=['Nome','Categoria','Fornitore','Data','N°Doc','Cantiere','Qtà Ord.','Qtà Ric.','UM','Prezzo €/um','Totale €','Note'];const rows=materiali.map(m=>[m.nome,m.categoria||'',m.fornitore||'',m.data||'',m.numero_doc||'',CANTIERI.find(c=>c.id===m.cantiere)?.nome||m.cantiere||'',m.quantita_ordinata,m.quantita_ricevuta,m.um,m.prezzo_unitario,m.totale_riga,m.note||'']);const csv=[h,...rows].map(r=>r.map(c=>`"${String(c||'').replace(/"/g,'""')}"`).join(',')).join('\n');const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`RIKO_Materiali_${new Date().toISOString().slice(0,10)}.csv`;a.click();URL.revokeObjectURL(url)}
+function matExportXLS(){if(materiali.length===0)return toast('Nessun materiale');const h=['Nome','Categoria','Fornitore','Data','Cantiere','Qtà','UM','Prezzo €','Totale €'];const rows=materiali.map(m=>[m.nome,m.categoria||'',m.fornitore||'',m.data||'',CANTIERI.find(c=>c.id===m.cantiere)?.nome||'',m.quantita_ricevuta,m.um,m.prezzo_unitario,m.totale_riga]);let html=`<html xmlns:o="urn:schemas-microsoft-com:office:office"><head><meta charset="UTF-8"></head><body><table>`;html+=`<tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>`;rows.forEach(r=>{html+=`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`});html+='</table></body></html>';const blob=new Blob([html],{type:'application/vnd.ms-excel;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`RIKO_Materiali_${new Date().toISOString().slice(0,10)}.xls`;a.click();URL.revokeObjectURL(url)}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// FOTO
+// ══════════════════════════════════════════════════════════════════════════════
+function requestGPS(){const st=document.getElementById('gps-status');const co=document.getElementById('gps-coords-txt');st.className='gps-status gps-wait';co.textContent='Acquisizione…';if(!navigator.geolocation){st.className='gps-status gps-err';co.textContent='GPS non disponibile';return}navigator.geolocation.getCurrentPosition(pos=>{fotoGPS={lat:pos.coords.latitude,lng:pos.coords.longitude,acc:Math.round(pos.coords.accuracy)};st.className='gps-status gps-ok';co.textContent=`${fotoGPS.lat.toFixed(5)}, ${fotoGPS.lng.toFixed(5)} (±${fotoGPS.acc}m)`;document.getElementById('foto-gps-info').style.display='block';document.getElementById('foto-gps-info').textContent=`📍 ${fotoGPS.lat.toFixed(6)}, ${fotoGPS.lng.toFixed(6)} ±${fotoGPS.acc}m`},err=>{st.className='gps-status gps-err';co.textContent=err.code===1?'Permesso negato':'Posizione non disponibile'},{enableHighAccuracy:true,timeout:10000,maximumAge:30000})}
+function readExifGPS(file){return new Promise(resolve=>{try{EXIF.getData(file,function(){const lat=EXIF.getTag(this,'GPSLatitude');const latRef=EXIF.getTag(this,'GPSLatitudeRef');const lng=EXIF.getTag(this,'GPSLongitude');const lngRef=EXIF.getTag(this,'GPSLongitudeRef');const dt=EXIF.getTag(this,'DateTimeOriginal');if(lat&&lng){const ld=lat[0]+lat[1]/60+lat[2]/3600;const lgd=lng[0]+lng[1]/60+lng[2]/3600;resolve({gps:{lat:latRef==='S'?-ld:ld,lng:lngRef==='W'?-lgd:lgd,acc:0,source:'exif'},dateTime:dt})}else resolve({gps:null,dateTime:dt})})}catch{resolve({gps:null,dateTime:null})}})}
+function initFotoScatta(){renderFotoFaseGrid();const now=new Date();now.setMinutes(now.getMinutes()-now.getTimezoneOffset());document.getElementById('foto-f-data').value=now.toISOString().slice(0,16)}
+function renderFotoFaseGrid(){const fasi=getFasi();document.getElementById('foto-fase-grid').innerHTML=fasi.map(f=>`<button class="fase-btn-s ${fotoCurrentFase===f.id?'active':''}" style="${fotoCurrentFase===f.id?`border-color:${f.colore};background:${f.colore}22;color:${f.colore}`:'font-family:DM Sans'}" onclick="fotoCurrentFase='${f.id}';renderFotoFaseGrid()"><span style="font-size:20px">${f.icon}</span><span>${f.nome}</span></button>`).join('')}
+function fotoOnFile(input){if(!input.files[0])return;fotoPendingFiles=[input.files[0]];const r=new FileReader();r.onload=e=>{document.getElementById('foto-preview-el').innerHTML=`<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover">`};r.readAsDataURL(input.files[0]);document.getElementById('foto-form-card').style.display='block';readExifGPS(input.files[0]).then(({gps,dateTime})=>{if(gps){fotoGPS=gps;document.getElementById('gps-status').className='gps-status gps-ok';document.getElementById('gps-coords-txt').textContent=`EXIF: ${gps.lat.toFixed(5)}, ${gps.lng.toFixed(5)}`;document.getElementById('foto-gps-info').style.display='block';document.getElementById('foto-gps-info').textContent=`📍 EXIF: ${gps.lat.toFixed(6)}, ${gps.lng.toFixed(6)}`}if(dateTime){try{const d=dateTime.replace(/^(\d{4}):(\d{2}):(\d{2})/,'$1-$2-$3');document.getElementById('foto-f-data').value=new Date(d).toISOString().slice(0,16)}catch{}}})}
+function fotoOnFiles(input){if(!input.files.length)return;fotoPendingFiles=Array.from(input.files);if(fotoPendingFiles.length===1){fotoOnFile(input);return}document.getElementById('foto-preview-el').innerHTML=`<div class="foto-ph"><div style="font-size:40px">🖼️</div><div style="font-size:15px;font-weight:700;color:var(--text)">${fotoPendingFiles.length} foto</div><div style="font-size:12px;color:var(--text3)">stessa fase</div></div>`;document.getElementById('foto-form-card').style.display='block'}
+async function fotoSalva(){const cant=document.getElementById('foto-f-cant').value;const desc=document.getElementById('foto-f-desc').value.trim();const data=document.getElementById('foto-f-data').value;if(!cant)return toast('⚠️ Seleziona cantiere');if(!fotoCurrentFase)return toast('⚠️ Seleziona la fase');if(!fotoPendingFiles.length)return toast('⚠️ Nessuna foto');const btn=document.getElementById('foto-btn-salva');btn.disabled=true;btn.innerHTML='<span class="spin">⏳</span> Salvataggio…';for(const file of fotoPendingFiles){const b64=await toBase64(file);let gps=fotoGPS;if(!gps){const ex=await readExifGPS(file);if(ex.gps)gps=ex.gps}const fase=getFase(fotoCurrentFase);fotoList.push({id:uid(),cantiere:cant,faseId:fotoCurrentFase,faseNome:fase?.nome,faseIcon:fase?.icon,faseColore:fase?.colore,faseOrdine:fase?.ordine??99,descrizione:desc,data:data||new Date().toISOString().slice(0,16),gps,thumbnail:b64,fileName:file.name})}addActivity('📸',`${fotoPendingFiles.length} foto aggiunte — ${CANTIERI.find(c=>c.id===cant)?.nome||cant} (${getFase(fotoCurrentFase)?.nome})`);saveAll();fotoUpdateKpi();btn.disabled=false;btn.innerHTML='💾 Salva nel Cantiere';fotoPendingFiles=[];document.getElementById('foto-preview-el').innerHTML=`<div class="foto-ph"><div style="font-size:44px">📷</div><div style="font-size:14px;color:var(--text3)">Nessuna foto</div></div>`;document.getElementById('foto-form-card').style.display='none';toast(`✅ ${fotoList.filter(f=>f.cantiere===cant).length>1?'Foto salvate':'Foto salvata'}${fotoGPS?' · 📍 GPS':''}`,'ok');setTimeout(()=>{fotoGalCantiere=cant;fotoGalFase='';showStab(document.querySelectorAll('#page-foto .stab')[1],'foto-gallery');renderFotoGallery()},1200)}
+function fotoUpdateKpi(){document.getElementById('foto-hk-n').textContent=fotoList.length;document.getElementById('foto-hk-c').textContent=[...new Set(fotoList.map(f=>f.cantiere))].length}
+function renderFotoCantieri(){const list=document.getElementById('foto-cant-list');const empty=document.getElementById('foto-cant-empty');const cp=Object.keys(CANTIERI.reduce((a,c)=>{a[c.id]=c;return a},{})).filter(id=>fotoList.some(f=>f.cantiere===id));if(cp.length===0){list.innerHTML='';empty.style.display='block';return}empty.style.display='none';list.innerHTML=cp.map(id=>{const fc=fotoList.filter(f=>f.cantiere===id);const ul=fc.slice().sort((a,b)=>new Date(b.data)-new Date(a.data))[0];const fasi=[...new Set(fc.map(f=>f.faseId))];const fo=getFasi().filter(f=>fasi.includes(f.id)).sort((a,b)=>a.ordine-b.ordine);return`<div class="cant-card" onclick="fotoGalCantiere='${id}';fotoGalFase='';showStab(document.querySelectorAll('#page-foto .stab')[1],'foto-gallery');renderFotoGallery()">${ul?.thumbnail?`<img class="cant-thumb" src="${ul.thumbnail}" alt="">`:`<div class="cant-thumb-ph">🏗️</div>`}<div class="cant-body"><div style="font-size:16px;font-weight:700;margin-bottom:3px">${CANTIERI.find(c=>c.id===id)?.nome||id}</div><div style="font-size:12px;color:var(--text3);margin-bottom:8px">${fc.length} foto · ${fasi.length} fasi</div><div style="display:flex;gap:5px;flex-wrap:wrap">${fo.map(f=>`<span style="background:${f.colore}22;color:${f.colore};padding:3px 8px;border-radius:10px;font-size:11px;font-weight:700">${f.icon} ${f.nome}</span>`).join('')}</div></div></div>`}).join('')}
+function renderFotoGallery(){if(!fotoGalCantiere)return;const cant=CANTIERI.find(c=>c.id===fotoGalCantiere);document.getElementById('foto-gal-title').textContent=cant?.nome||fotoGalCantiere;const fc=fotoList.filter(f=>f.cantiere===fotoGalCantiere);document.getElementById('foto-gal-sub').textContent=`${fc.length} foto`;const fasiP=[...new Set(fc.map(f=>f.faseId))];const fasi=getFasi().filter(f=>fasiP.includes(f.id)).sort((a,b)=>a.ordine-b.ordine);document.getElementById('foto-fase-filters').innerHTML=`<button class="gf ${fotoGalFase===''?'active':''}" onclick="fotoGalFase='';renderFotoGallery()">Tutte (${fc.length})</button>`+fasi.map(f=>{const n=fc.filter(x=>x.faseId===f.id).length;return`<button class="gf ${fotoGalFase===f.id?'active':''}" onclick="fotoGalFase='${f.id}';renderFotoGallery()" style="${fotoGalFase===f.id?`border-color:${f.colore};background:${f.colore}22;color:${f.colore}`:''}"> ${f.icon} ${f.nome} (${n})</button>`}).join('');
+const card=document.getElementById('foto-phase-card');if(fc.length>0&&fasi.length>0){card.style.display='block';const maxN=Math.max(...fasi.map(f=>fc.filter(x=>x.faseId===f.id).length));document.getElementById('foto-phase-prog').innerHTML=fasi.map(f=>{const n=fc.filter(x=>x.faseId===f.id).length;const pct=maxN>0?(n/maxN*100):0;return`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:${f.colore};font-weight:600">${f.icon} ${f.nome}</span><span style="font-family:'DM Mono';color:var(--text3)">${n} foto</span></div><div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${f.colore}"></div></div></div>`}).join('')}else card.style.display='none';
+const ff=fotoGalFase?fc.filter(f=>f.faseId===fotoGalFase):fc;const tl=document.getElementById('foto-timeline');const em=document.getElementById('foto-gal-empty');if(ff.length===0){tl.innerHTML='';em.style.display='block';return}em.style.display='none';
+lbFotos=ff.slice().sort((a,b)=>{const fa=getFase(a.faseId)?.ordine??99;const fb=getFase(b.faseId)?.ordine??99;return fa!==fb?fa-fb:new Date(a.data)-new Date(b.data)});const idxMap={};lbFotos.forEach((f,i)=>idxMap[f.id]=i);
+const groups={};ff.forEach(f=>{if(!groups[f.faseId])groups[f.faseId]=[];groups[f.faseId].push(f)});Object.values(groups).forEach(g=>g.sort((a,b)=>new Date(a.data)-new Date(b.data)));const allFasi=getFasi();const go=Object.entries(groups).sort(([a],[b])=>(allFasi.find(f=>f.id===a)?.ordine??99)-(allFasi.find(f=>f.id===b)?.ordine??99));
+tl.innerHTML=`<div class="timeline">${go.map(([fid,fp])=>{const fase=allFasi.find(f=>f.id===fid);if(!fase)return'';return`<div class="tl-group"><div class="tl-phase-hdr"><div class="tl-dot" style="background:${fase.colore}">${fase.icon}</div><div style="font-size:14px;font-weight:700;color:${fase.colore}">${fase.nome}</div><div style="margin-left:auto;font-size:12px;color:var(--text3)">${fp.length} foto</div></div><div class="tl-photos">${fp.map((f,i)=>`<div class="tl-photo" onclick="openLB(${idxMap[f.id]})"><img src="${f.thumbnail}" alt=""><div class="tl-num">#${i+1}</div>${f.gps?'<div class="tl-gps">📍</div>':''}</div>`).join('')}</div></div>`}).join('')}</div>`}
+function openLB(idx){lbIdx=idx;document.getElementById('lightbox').classList.add('open');renderLB()}
+function renderLB(){const f=lbFotos[lbIdx];if(!f)return;const fase=getFase(f.faseId);document.getElementById('lb-img').src=f.thumbnail;document.getElementById('lb-title').textContent=`${fase?.icon||''} ${fase?.nome||''} — ${f.descrizione||'Senza titolo'}`;document.getElementById('lb-counter').textContent=`${lbIdx+1} / ${lbFotos.length}`;document.getElementById('lb-info').innerHTML=`<div class="lb-row"><span>📅 Data</span><span>${f.data?new Date(f.data).toLocaleString('it-IT'):'—'}</span></div><div class="lb-row"><span>🏗️ Cantiere</span><span>${CANTIERI.find(c=>c.id===f.cantiere)?.nome||f.cantiere}</span></div><div class="lb-row"><span>🔧 Fase</span><span style="color:${fase?.colore||'inherit'}">${fase?.nome||'—'}</span></div>${f.descrizione?`<div class="lb-row"><span>📝 Desc.</span><span>${f.descrizione}</span></div>`:''}<div class="lb-row"><span>📍 GPS</span><span>${f.gps?`<a href="https://maps.google.com/?q=${f.gps.lat},${f.gps.lng}" target="_blank" style="color:var(--blue)">Apri Mappa →</a>`:'Non disponibile'}</span></div><div style="margin-top:10px;display:flex;gap:8px"><button onclick="fotoElimina('${f.id}')" style="flex:1;padding:10px;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);border-radius:8px;color:var(--red);font-size:13px;cursor:pointer;font-family:'DM Sans'">🗑️ Elimina</button>${f.gps?`<a href="https://maps.google.com/?q=${f.gps.lat},${f.gps.lng}" target="_blank" style="flex:1;padding:10px;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.3);border-radius:8px;color:var(--blue);font-size:13px;text-decoration:none;text-align:center">🗺️ Mappa</a>`:''}` }
+function closeLB(){document.getElementById('lightbox').classList.remove('open')}
+function lbNav(dir){lbIdx=(lbIdx+dir+lbFotos.length)%lbFotos.length;renderLB()}
+function fotoElimina(id){if(!confirm('Eliminare questa foto?'))return;fotoList=fotoList.filter(f=>f.id!==id);lbFotos=lbFotos.filter(f=>f.id!==id);saveAll();fotoUpdateKpi();if(lbFotos.length===0){closeLB();renderFotoGallery()}else{lbIdx=Math.min(lbIdx,lbFotos.length-1);renderLB();renderFotoGallery()}toast('🗑️ Foto eliminata')}
+function renderFotoFasi(){const content=document.getElementById('foto-fasi-content');content.innerHTML=`<div class="card"><div class="ct">🎨 Fasi Standard</div>${FASI_STD.map(f=>`<div class="fase-custom-item"><div style="width:10px;height:10px;border-radius:50%;background:${f.colore};flex-shrink:0"></div><div style="font-size:14px;flex:1">${f.icon} ${f.nome}</div><span style="font-size:11px;color:var(--text4)">standard</span></div>`).join('')}</div><div class="card"><div class="ct">✏️ Fasi Personalizzate</div>${fasiCustom.length===0?'<div style="font-size:13px;color:var(--text4);margin-bottom:12px">Nessuna fase personalizzata</div>':fasiCustom.map(f=>`<div class="fase-custom-item"><div style="width:10px;height:10px;border-radius:50%;background:${f.colore};flex-shrink:0"></div><div style="font-size:14px;flex:1">${f.icon} ${f.nome}</div><button onclick="fasiCustom=fasiCustom.filter(x=>x.id!=='${f.id}');saveAll();renderFotoFasi()" style="background:transparent;border:none;color:var(--text4);font-size:18px;cursor:pointer">×</button></div>`).join('')}<div class="add-fase-row"><input class="add-fase-input" type="text" id="new-fase-txt" placeholder="Nuova fase…" onkeydown="if(event.key==='Enter')fotoAddFase()"><button class="add-fase-btn" onclick="fotoAddFase()">+</button></div></div>`}
+const ICONE_F=['🔨','🪚','🔧','🪛','🧰','🏗️','🚧','🔩','⚙️','🪝','🧱','🪣','🎨','🔌','💧','🪟','🚪'];
+const COLORI_F=['#e85d2f','#f5a623','#facc15','#4ade80','#60a5fa','#a78bfa','#f472b6','#34d399','#fb7185'];
+let fIconI=0,fColI=0;
+function fotoAddFase(){const n=document.getElementById('new-fase-txt').value.trim();if(!n)return;fasiCustom.push({id:'c_'+uid(),nome:n,icon:ICONE_F[fIconI++%ICONE_F.length],colore:COLORI_F[fColI++%COLORI_F.length],ordine:FASI_STD.length+fasiCustom.length});saveAll();renderFotoFasi();toast(`✅ Fase "${n}" aggiunta`,'ok')}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// PRESENZE
+// ══════════════════════════════════════════════════════════════════════════════
+const STATI = [
+  {id:'presente', label:'Presente', icon:'✅'},
+  {id:'assente',  label:'Assente',  icon:'❌'},
+  {id:'permesso', label:'Permesso', icon:'🟡'},
+  {id:'malattia', label:'Malattia', icon:'💊'},
+];
+const GIORNI = ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
+const MESI_NOMI = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+
+function prGetGiornata(day) { return presenze[day] || null; }
+function prEnsureGiornata(day) { if(!presenze[day]) presenze[day]={cantiere:'',operai:{}}; return presenze[day]; }
+function prGetOperaioDay(day, opId) { const g=prEnsureGiornata(day); if(!g.operai[opId]) g.operai[opId]={stato:'presente',oreNormali:8,oreStraordinari:0,note:''}; return g.operai[opId]; }
+function prInitDay(day){const g=prEnsureGiornata(day);operai.forEach(op=>{if(!g.operai[op.id])g.operai[op.id]={stato:'presente',oreNormali:8,oreStraordinari:0,note:''}})}
+
+function prUpdateKpi(){
+  const today=new Date().toISOString().slice(0,10);
+  const g=prGetGiornata(today);
+  const presenti=g?Object.values(g.operai).filter(o=>o.stato==='presente').length:0;
+  const ore=g?Object.values(g.operai).filter(o=>o.stato==='presente').reduce((s,o)=>s+(parseFloat(o.oreNormali)||0)+(parseFloat(o.oreStraordinari)||0),0):0;
+  document.getElementById('pr-hk-oggi').textContent=presenti;
+  document.getElementById('pr-hk-ore').textContent=ore+'h';
+}
+
+// ── OGGI ──
+function prChangeDay(dir){
+  const d=new Date(prCurrentDay);d.setDate(d.getDate()+dir);
+  prCurrentDay=d.toISOString().slice(0,10);renderPresenzeOggi();
+}
+function prSaveDayCantiere(val){prEnsureGiornata(prCurrentDay).cantiere=val;saveAll()}
+
+function renderPresenzeOggi(){
+  const d=new Date(prCurrentDay+'T12:00:00');
+  document.getElementById('pr-date-label').textContent=d.toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long'});
+  document.getElementById('pr-date-sub').textContent=prCurrentDay;
+  const isWeekend=d.getDay()===0||d.getDay()===6;
+  prInitDay(prCurrentDay);
+  const g=prGetGiornata(prCurrentDay);
+  const sel=document.getElementById('pr-cantiere-giorno');
+  if(sel)sel.value=g?.cantiere||'';
+  const list=document.getElementById('pr-operai-list');
+  const empty=document.getElementById('pr-no-operai');
+  if(operai.length===0){list.innerHTML='';empty.style.display='block';return}
+  empty.style.display='none';
+  list.innerHTML=operai.map(op=>{
+    const od=prGetOperaioDay(prCurrentDay,op.id);
+    return`<div class="pr-operaio-row">
+      <div class="pr-operaio-header">
+        <div><div class="pr-operaio-name">${op.nome} ${op.cognome}</div><div class="pr-operaio-role">${op.ruolo||'—'}</div></div>
+      </div>
+      <div class="pr-stato-row">
+        ${STATI.map(s=>`<button class="pr-stato-btn ${od.stato===s.id?'active-'+s.id:''}" onclick="prSetStato('${op.id}','${s.id}')">${s.icon} ${s.label}</button>`).join('')}
+      </div>
+      <div class="pr-ore-grid" id="pr-ore-${op.id}" style="${od.stato!=='presente'?'opacity:0.4;pointer-events:none':''}">
+        <div class="pr-ore-field"><div class="pr-ore-label">Ore norm.</div><input class="pr-ore-input" type="number" min="0" max="24" step="0.5" value="${od.oreNormali}" onchange="prSetOre('${op.id}','oreNormali',this.value)" placeholder="8"></div>
+        <div class="pr-ore-field"><div class="pr-ore-label">Straord.</div><input class="pr-ore-input" type="number" min="0" max="12" step="0.5" value="${od.oreStraordinari}" onchange="prSetOre('${op.id}','oreStraordinari',this.value)" placeholder="0"></div>
+        <div class="pr-ore-field"><div class="pr-ore-label">Totale</div><div class="pr-ore-input" id="pr-tot-${op.id}" style="display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);background:var(--bg3)">${(parseFloat(od.oreNormali)||0)+(parseFloat(od.oreStraordinari)||0)}h</div></div>
+      </div>
+    </div>`;
+  }).join('');
+  prUpdateKpi();
+}
+
+function prSetStato(opId, stato){
+  const od=prGetOperaioDay(prCurrentDay,opId);
+  od.stato=stato;
+  // Se assente/malattia/permesso azzera ore
+  if(stato!=='presente'){od.oreNormali=0;od.oreStraordinari=0}
+  else{od.oreNormali=8;od.oreStraordinari=0}
+  saveAll();renderPresenzeOggi();
+}
+function prSetOre(opId,campo,val){
+  const od=prGetOperaioDay(prCurrentDay,opId);
+  od[campo]=parseFloat(val)||0;
+  const tot=document.getElementById('pr-tot-'+opId);
+  if(tot)tot.textContent=(od.oreNormali+od.oreStraordinari)+'h';
+  saveAll();prUpdateKpi();
+}
+function prSalvaGiornata(){
+  saveAll();prUpdateKpi();
+  addActivity('👷',`Presenze salvate — ${prCurrentDay}`);
+  document.getElementById('pr-success-oggi').style.display='block';
+  setTimeout(()=>document.getElementById('pr-success-oggi').style.display='none',2000);
+  toast('✅ Giornata salvata','ok');
+}
+
+// ── SETTIMANA ──
+function prChangeWeek(dir){prCurrentWeek=new Date(prCurrentWeek);prCurrentWeek.setDate(prCurrentWeek.getDate()+dir*7);renderPresenzeSettimana()}
+function getWeekDays(ref){
+  const d=new Date(ref);const day=d.getDay();const mon=new Date(d);
+  mon.setDate(d.getDate()-(day===0?6:day-1));
+  return Array.from({length:7},(_,i)=>{const dd=new Date(mon);dd.setDate(mon.getDate()+i);return dd.toISOString().slice(0,10)});
+}
+function renderPresenzeSettimana(){
+  const days=getWeekDays(prCurrentWeek);
+  const today=new Date().toISOString().slice(0,10);
+  const d0=new Date(days[0]+'T12:00:00'),d6=new Date(days[6]+'T12:00:00');
+  document.getElementById('pr-week-label').textContent=`${d0.toLocaleDateString('it-IT',{day:'numeric',month:'short'})} – ${d6.toLocaleDateString('it-IT',{day:'numeric',month:'short',year:'numeric'})}`;
+  // Griglia giorni
+  document.getElementById('pr-week-grid').innerHTML=days.map(day=>{
+    const g=prGetGiornata(day);
+    const presenti=g?Object.values(g.operai).filter(o=>o.stato==='presente').length:0;
+    const d=new Date(day+'T12:00:00');
+    const isToday=day===today;
+    const isSelected=day===prCurrentDay;
+    const dotColor=presenti>0?'var(--green)':g?'var(--red)':'transparent';
+    return`<div class="pr-week-day ${isToday?'today':''} ${isSelected?'selected':''}" onclick="prCurrentDay='${day}';showStab(document.querySelector('#page-presenze .stab'),'pr-oggi');renderPresenzeOggi()">
+      <div class="pr-week-day-name">${GIORNI[d.getDay()]}</div>
+      <div class="pr-week-day-num" style="color:${isToday?'var(--accent)':'var(--text)'}">${d.getDate()}</div>
+      <div class="pr-week-day-dot" style="background:${dotColor}"></div>
+    </div>`;
+  }).join('');
+  // Tabella ore settimanali
+  const tbl=document.getElementById('pr-week-table');
+  if(operai.length===0){tbl.innerHTML='<div style="font-size:13px;color:var(--text4)">Nessun operaio registrato</div>';return}
+  tbl.innerHTML=`<table style="width:100%;border-collapse:collapse;font-size:13px">
+    <tr><th style="text-align:left;padding:8px 6px;color:var(--text3);font-size:11px;border-bottom:1px solid var(--border)">Operaio</th>
+    ${days.map(day=>{const d=new Date(day+'T12:00:00');return`<th style="text-align:center;padding:8px 4px;color:${day===today?'var(--accent)':'var(--text3)'};font-size:10px;border-bottom:1px solid var(--border)">${GIORNI[d.getDay()]}<br>${d.getDate()}</th>`}).join('')}
+    <th style="text-align:center;padding:8px 6px;color:var(--text3);font-size:11px;border-bottom:1px solid var(--border)">Tot.</th></tr>
+    ${operai.map(op=>{
+      let totH=0;
+      const cells=days.map(day=>{
+        const g=prGetGiornata(day);const od=g?.operai?.[op.id];
+        if(!od)return`<td style="text-align:center;padding:7px 2px;border-bottom:1px solid var(--border);color:var(--text4)">—</td>`;
+        const stato=od.stato;const ore=(parseFloat(od.oreNormali)||0)+(parseFloat(od.oreStraordinari)||0);
+        totH+=ore;
+        const chip=stato==='presente'?`<span style="font-family:'DM Mono';font-size:11px;color:${ore>8?'var(--yellow)':'var(--green)'}">${ore}h</span>`:
+          stato==='assente'?'<span style="font-size:11px;color:var(--red)">❌</span>':
+          stato==='permesso'?'<span style="font-size:11px;color:var(--yellow)">P</span>':'<span style="font-size:11px;color:var(--blue)">M</span>';
+        return`<td style="text-align:center;padding:7px 2px;border-bottom:1px solid var(--border)">${chip}</td>`;
+      }).join('');
+      return`<tr><td style="padding:7px 6px;border-bottom:1px solid var(--border);font-weight:500;white-space:nowrap">${op.nome} ${op.cognome.charAt(0)}.</td>${cells}<td style="text-align:center;padding:7px 6px;border-bottom:1px solid var(--border);font-family:'DM Mono';font-weight:700;color:var(--accent)">${totH}h</td></tr>`;
+    }).join('')}
+  </table>`;
+}
+
+// ── RIEPILOGO MENSILE ──
+function prChangeMonth(dir){prCurrentMonth.m+=dir;if(prCurrentMonth.m>11){prCurrentMonth.m=0;prCurrentMonth.y++}if(prCurrentMonth.m<0){prCurrentMonth.m=11;prCurrentMonth.y--}renderPresenzeRiepilogo()}
+function renderPresenzeRiepilogo(){
+  const {y,m}=prCurrentMonth;
+  document.getElementById('pr-month-label').textContent=`${MESI_NOMI[m]} ${y}`;
+  const daysInMonth=new Date(y,m+1,0).getDate();
+  const allDays=Array.from({length:daysInMonth},(_,i)=>`${y}-${String(m+1).padStart(2,'0')}-${String(i+1).padStart(2,'0')}`);
+  // KPI
+  const totPresenze=allDays.reduce((s,d)=>{const g=prGetGiornata(d);return s+(g?Object.values(g.operai).filter(o=>o.stato==='presente').length:0)},0);
+  const totOre=allDays.reduce((s,d)=>{const g=prGetGiornata(d);return s+(g?Object.values(g.operai).filter(o=>o.stato==='presente').reduce((ss,o)=>ss+(parseFloat(o.oreNormali)||0)+(parseFloat(o.oreStraordinari)||0),0):0)},0);
+  const totStr=allDays.reduce((s,d)=>{const g=prGetGiornata(d);return s+(g?Object.values(g.operai).filter(o=>o.stato==='presente').reduce((ss,o)=>ss+(parseFloat(o.oreStraordinari)||0),0):0)},0);
+  document.getElementById('pr-month-kpi').innerHTML=`
+    <div class="kpi-card"><div class="kpi-big" style="color:var(--blue)">${totPresenze}</div><div class="kpi-lbl">Presenze</div></div>
+    <div class="kpi-card"><div class="kpi-big" style="color:var(--accent)">${totOre}h</div><div class="kpi-lbl">Ore tot.</div></div>
+    <div class="kpi-card"><div class="kpi-big" style="color:var(--yellow)">${totStr}h</div><div class="kpi-lbl">Straord.</div></div>`;
+  // Tabella operai
+  document.getElementById('pr-month-table').innerHTML=operai.length===0?'<div style="font-size:13px;color:var(--text4)">Nessun operaio</div>':operai.map(op=>{
+    let pres=0,oreN=0,oreS=0,assenze=0,permessi=0,malattie=0;
+    allDays.forEach(d=>{const g=prGetGiornata(d);const od=g?.operai?.[op.id];if(!od)return;if(od.stato==='presente'){pres++;oreN+=parseFloat(od.oreNormali)||0;oreS+=parseFloat(od.oreStraordinari)||0}else if(od.stato==='assente')assenze++;else if(od.stato==='permesso')permessi++;else if(od.stato==='malattia')malattie++});
+    return`<div class="pr-riepilogo-row"><div><div class="pr-riepilogo-name">${op.nome} ${op.cognome}</div><div style="font-size:11px;color:var(--text4)">${op.ruolo||'—'}</div></div><div style="text-align:right"><div style="font-family:'DM Mono';font-size:13px"><span style="color:var(--green)">${pres}gg</span> · <span style="color:var(--accent)">${oreN}h</span>${oreS>0?` <span style="color:var(--yellow)">+${oreS}h str.</span>`:''}</div><div style="font-size:11px;color:var(--text4)">A:${assenze} P:${permessi} M:${malattie}</div></div></div>`;
+  }).join('');
+  // Per cantiere
+  const cantieriMap={};allDays.forEach(d=>{const g=prGetGiornata(d);if(!g?.cantiere)return;if(!cantieriMap[g.cantiere])cantieriMap[g.cantiere]={giorni:0,ore:0};cantieriMap[g.cantiere].giorni++;const oreG=Object.values(g.operai).filter(o=>o.stato==='presente').reduce((s,o)=>s+(parseFloat(o.oreNormali)||0)+(parseFloat(o.oreStraordinari)||0),0);cantieriMap[g.cantiere].ore+=oreG});
+  const cantieriHtml=Object.entries(cantieriMap).map(([cid,d])=>{const c=CANTIERI.find(x=>x.id===cid);return`<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px"><span style="color:${c?.colore||'var(--text2)'};font-weight:500">${c?.nome||cid}</span><span style="font-family:'DM Mono';color:var(--text2)">${d.giorni} giorni · ${d.ore}h</span></div>`}).join('');
+  document.getElementById('pr-month-cantieri').innerHTML=cantieriHtml||'<div style="font-size:13px;color:var(--text4)">Nessun dato</div>';
+}
+
+// ── OPERAI ──
+function prAddOperaio(){
+  const nome=document.getElementById('pr-new-nome').value.trim();
+  const cognome=document.getElementById('pr-new-cognome').value.trim();
+  if(!nome||!cognome)return toast('⚠️ Inserisci nome e cognome');
+  operai.push({id:uid(),nome,cognome,ruolo:document.getElementById('pr-new-ruolo').value});
+  saveAll();renderOperai();
+  document.getElementById('pr-success-op').style.display='block';
+  setTimeout(()=>document.getElementById('pr-success-op').style.display='none',2000);
+  document.getElementById('pr-new-nome').value='';document.getElementById('pr-new-cognome').value='';
+  toast('✅ Operaio aggiunto','ok');
+}
+function renderOperai(){
+  const el=document.getElementById('pr-operai-cards');
+  el.innerHTML=operai.length===0?'<div class="empty"><div class="ei">👷</div><div class="et">Nessun operaio</div><div class="es">Aggiungi il primo operaio qui sotto</div></div>':
+    operai.map(op=>`<div class="operaio-card">
+      <div class="operaio-avatar">${op.nome.charAt(0)}${op.cognome.charAt(0)}</div>
+      <div style="flex:1;margin-left:12px"><div style="font-size:15px;font-weight:600">${op.nome} ${op.cognome}</div><div style="font-size:12px;color:var(--text3)">${op.ruolo||'—'}</div></div>
+      <button onclick="if(confirm('Rimuovere ${op.nome} ${op.cognome}?')){operai=operai.filter(o=>o.id!=='${op.id}');saveAll();renderOperai();renderPresenzeOggi()}" style="background:transparent;border:none;color:var(--text4);font-size:20px;cursor:pointer;padding:4px">×</button>
+    </div>`).join('');
+}
+
+// ── EXPORT ──
+function prBuildRows(mese, anno){
+  const daysInMonth=new Date(anno,mese,0).getDate();
+  const rows=[];
+  const m=String(mese).padStart(2,'0');
+  for(let d=1;d<=daysInMonth;d++){
+    const day=`${anno}-${m}-${String(d).padStart(2,'0')}`;
+    const g=prGetGiornata(day);
+    const cant=g?.cantiere?CANTIERI.find(c=>c.id===g.cantiere)?.nome||g.cantiere:'';
+    const wd=new Date(day+'T12:00:00');
+    operai.forEach(op=>{
+      const od=g?.operai?.[op.id];
+      const stato=od?.stato||'—';
+      const oreN=od?.oreNormali??'';
+      const oreS=od?.oreStraordinari??'';
+      const tot=od&&od.stato==='presente'?((parseFloat(od.oreNormali)||0)+(parseFloat(od.oreStraordinari)||0)):'';
+      rows.push([day,GIORNI[wd.getDay()],cant,op.nome,op.cognome,op.ruolo||'',stato,oreN,oreS,tot]);
+    });
+  }
+  return rows;
+}
+function prExportCSV(){
+  const mese=document.getElementById('pr-export-mese').value;
+  const anno=document.getElementById('pr-export-anno').value;
+  const rows=prBuildRows(mese,anno);
+  const h=['Data','Giorno','Cantiere','Nome','Cognome','Ruolo','Stato','Ore Normali','Ore Straord.','Ore Totali'];
+  const csv=[h,...rows].map(r=>r.map(c=>`"${String(c||'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download=`RIKO_Presenze_${anno}-${mese}.csv`;a.click();URL.revokeObjectURL(url);
+}
+function prExportXLS(){
+  const mese=document.getElementById('pr-export-mese').value;
+  const anno=document.getElementById('pr-export-anno').value;
+  const rows=prBuildRows(mese,anno);
+  const h=['Data','Giorno','Cantiere','Nome','Cognome','Ruolo','Stato','Ore Normali','Ore Straord.','Ore Totali'];
+  let html=`<html xmlns:o="urn:schemas-microsoft-com:office:office"><head><meta charset="UTF-8"><style>th{background:#f0f0f0;font-weight:bold}td,th{border:1px solid #ccc;padding:5px}</style></head><body><table>`;
+  html+=`<tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>`;
+  rows.forEach(r=>{html+=`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`});
+  html+='</table></body></html>';
+  const blob=new Blob([html],{type:'application/vnd.ms-excel;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download=`RIKO_Presenze_${anno}-${mese}.xls`;a.click();URL.revokeObjectURL(url);
+}
+
+
+// ══════════════════════════════════════════════════════════════════════════════
+// WHATSAPP
+// ══════════════════════════════════════════════════════════════════════════════
+function waUpdateKpi(){document.getElementById('wa-hk-conv').textContent=waConversazioni.length;document.getElementById('wa-hk-msg').textContent=waConversazioni.reduce((s,c)=>s+(c.messaggi?.length||0),0)}
+function waSetFiltroTipo(tipo,el){waFiltroTipo=tipo;document.querySelectorAll('#wa-archivio .filt').forEach(f=>f.classList.remove('active'));el.classList.add('active');waRenderArchivio()}
+function waSetFiltroCant(cant,el){waFiltroCant=cant;document.querySelectorAll('#wa-filt-cant .filt').forEach(f=>f.classList.remove('active'));el.classList.add('active');waRenderArchivio()}
+function waRenderArchivio(){
+  const fc=document.getElementById('wa-filt-cant');
+  const cants=[...new Set(waConversazioni.map(c=>c.cantiere).filter(Boolean))];
+  fc.innerHTML=`<button class="filt ${waFiltroCant===''?'active':''}" onclick="waSetFiltroCant('',this)">Tutti</button>`+cants.map(cid=>{const c=CANTIERI.find(x=>x.id===cid);return`<button class="filt ${waFiltroCant===cid?'active':''}" onclick="waSetFiltroCant('${cid}',this)">${c?c.nome:cid}</button>`}).join('');
+  let filtered=waConversazioni.filter(c=>(!waFiltroTipo||c.tipo===waFiltroTipo)&&(!waFiltroCant||c.cantiere===waFiltroCant)).sort((a,b)=>new Date(b.dataCreazione)-new Date(a.dataCreazione));
+  const list=document.getElementById('wa-conv-list');const empty=document.getElementById('wa-conv-empty');
+  empty.style.display=filtered.length===0?'block':'none';
+  list.innerHTML=filtered.map(conv=>{const c=CANTIERI.find(x=>x.id===conv.cantiere);const lastMsg=conv.messaggi?.slice(-1)[0];const bc=conv.tipo==='operai'?'rgba(37,211,102,0.3)':'rgba(96,165,250,0.2)';const icon=conv.tipo==='operai'?'👷':'🤝';const bg=conv.tipo==='operai'?'rgba(37,211,102,0.12)':'rgba(96,165,250,0.1)';
+  return`<div class="wa-conv-card" onclick="waOpenDetail('${conv.id}')" style="border-color:${bc}"><div class="wa-conv-header"><div class="wa-conv-avatar" style="background:${bg}">${icon}</div><div style="flex:1;min-width:0"><div class="wa-conv-name">${conv.nome}</div><div class="wa-conv-meta">${c?`<span style="color:${c.colore};font-weight:600">${c.nome}</span> · `:''}<span style="color:${conv.tipo==='operai'?'#25d366':'var(--blue)'}">${conv.tipo==='operai'?'Operai':'Cliente'}</span> · ${conv.messaggi?.length||0} msg${conv.screenshots?.length?` · ${conv.screenshots.length} screenshot`:''}${conv.aiRisultato?' · <span style="color:var(--blue)">🤖</span>':''}</div></div><button onclick="event.stopPropagation();if(confirm('Eliminare?')){waConversazioni=waConversazioni.filter(x=>x.id!=='${conv.id}');saveAll();waRenderArchivio();waUpdateKpi()}" style="background:transparent;border:none;color:var(--text4);font-size:18px;cursor:pointer;padding:4px">×</button></div>${lastMsg?`<div class="wa-conv-preview">${lastMsg.mittente?lastMsg.mittente+': ':''}${lastMsg.testo}</div>`:''}</div>`}).join('')}
+function waSetTipoCarica(tipo){waTipoCarica=tipo;document.getElementById('wa-t-op').className='wa-tipo-btn'+(tipo==='operai'?' active-op':'');document.getElementById('wa-t-cl').className='wa-tipo-btn'+(tipo==='cliente'?' active-cl':'')}
+function waOnDropTxt(e){e.preventDefault();document.getElementById('wa-dz-txt').classList.remove('drag');const f=e.dataTransfer.files[0];if(f)waProcessTxt(f)}
+function waLoadTxt(input){if(input.files[0])waProcessTxt(input.files[0])}
+function waParseTxt(raw){const lines=raw.split('\n');const msgs=[];const re=/^(\d{1,2}[\/\.\-]\d{1,2}[\/\.\-]\d{2,4})[,\s]+(\d{1,2}:\d{2})(?::\d{2})?\s*[-–]\s*([^:]+?):\s*(.*)/;const reSys=/^(\d{1,2}[\/\.\-]\d{1,2}[\/\.\-]\d{2,4})[,\s]+(\d{1,2}:\d{2})(?::\d{2})?\s*[-–]\s*(.*)/;let current=null;for(const line of lines){const m=re.exec(line);if(m){if(current)msgs.push(current);current={ts:`${m[1]} ${m[2]}`,mittente:m[3].trim(),testo:m[4].trim()}}else if(current&&line.trim()&&!reSys.test(line)){current.testo+=' '+line.trim()}else if(!current&&line.trim()){const ms=reSys.exec(line);if(ms){if(current)msgs.push(current);current={ts:`${ms[1]} ${ms[2]}`,mittente:'Sistema',testo:ms[3].trim()}}}}if(current)msgs.push(current);return msgs.filter(m=>m.testo&&!['<Media omesso>','<immagine omessa>'].includes(m.testo)&&!m.testo.startsWith('I messaggi'))}
+function waProcessTxt(file){const reader=new FileReader();reader.onload=e=>{const raw=e.target.result;const messaggi=waParseTxt(raw);waPendingTxt={raw,messaggi};const preview=document.getElementById('wa-txt-preview');preview.style.display='block';const n=messaggi.length;const mittenti=[...new Set(messaggi.map(m=>m.mittente).filter(Boolean))];preview.innerHTML=`<div style="padding:14px;background:rgba(37,211,102,0.06);border:1px solid rgba(37,211,102,0.2);border-radius:var(--rs);margin-bottom:10px"><div style="font-size:14px;font-weight:600;color:#25d366;margin-bottom:6px">✅ ${n} messaggi trovati</div><div style="font-size:12px;color:var(--text3)">Partecipanti: ${mittenti.slice(0,5).join(', ')}${mittenti.length>5?` +${mittenti.length-5} altri`:''}</div><div style="font-size:12px;color:var(--text3);margin-top:3px">Dal ${messaggi[0]?.ts||'—'} al ${messaggi[n-1]?.ts||'—'}</div></div><div style="max-height:150px;overflow-y:auto;background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:10px">${messaggi.slice(0,6).map(m=>`<div style="font-size:12px;margin-bottom:6px;color:var(--text3)"><span style="color:var(--accent2);font-weight:600">${m.mittente||'—'}</span> <span style="color:var(--text4)">${m.ts||''}</span><br>${(m.testo||'').slice(0,80)}${(m.testo||'').length>80?'…':''}</div>`).join('')}${n>6?`<div style="font-size:11px;color:var(--text4);text-align:center">… altri ${n-6} messaggi</div>`:''}</div>`;document.getElementById('wa-btn-importa-txt').style.display='flex'};reader.readAsText(file,'UTF-8')}
+function waImportaTxt(){if(!waPendingTxt)return toast('⚠️ Nessun file');const nome=document.getElementById('wa-carica-nome').value.trim();const cantiere=document.getElementById('wa-carica-cant').value;if(!nome)return toast('⚠️ Inserisci il nome');waConversazioni.push({id:uid(),tipo:waTipoCarica,cantiere,nome,messaggi:waPendingTxt.messaggi,screenshots:[],aiRisultato:null,dataCreazione:new Date().toISOString()});addActivity('💬',`Chat "${nome}" importata (${waPendingTxt.messaggi.length} msg)`);saveAll();waUpdateKpi();waRenderArchivio();waPendingTxt=null;document.getElementById('wa-txt-preview').style.display='none';document.getElementById('wa-btn-importa-txt').style.display='none';document.getElementById('wa-fi-txt').value='';document.getElementById('wa-success').style.display='block';setTimeout(()=>document.getElementById('wa-success').style.display='none',2500);toast('✅ Chat importata','ok')}
+function waLoadScreenshots(input){waPendingScreenshots=Array.from(input.files);const preview=document.getElementById('wa-screenshots-preview');preview.innerHTML=`<div class="wa-screenshot-grid">${waPendingScreenshots.map(()=>`<div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--rs);aspect-ratio:9/16;display:flex;align-items:center;justify-content:center;font-size:28px">⏳</div>`).join('')}</div>`;waPendingScreenshots.forEach((f,i)=>{const r=new FileReader();r.onload=e=>{const cells=preview.querySelectorAll('div[style*="aspect-ratio"]');if(cells[i])cells[i].innerHTML=`<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;border-radius:var(--rs)">`};r.readAsDataURL(f)});document.getElementById('wa-btn-analizza-img').style.display='flex'}
+async function waAnalizzaScreenshots(){const nome=document.getElementById('wa-carica-nome').value.trim();const cantiere=document.getElementById('wa-carica-cant').value;if(!nome)return toast('⚠️ Inserisci il nome');const btn=document.getElementById('wa-btn-analizza-img');btn.disabled=true;btn.innerHTML='<span class="spin">⏳</span> Estrazione…';const allMsgs=[];for(const file of waPendingScreenshots){const b64=await toBase64(file);const mt=file.type||'image/jpeg';try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1500,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:mt,data:b64.split(',')[1]}},{type:'text',text:`Estrai TUTTI i messaggi da questo screenshot WhatsApp. Rispondi SOLO JSON: {"messaggi":[{"mittente":"...","ts":"...","testo":"..."}]}`}]}]})});const data=await r.json();const text=data.content?.filter(b=>b.type==='text').map(b=>b.text).join('')||'';const parsed=JSON.parse(text.replace(/```json|```/g,'').trim());allMsgs.push(...(parsed.messaggi||[]))}catch(e){}}
+const screenshotsData=await Promise.all(waPendingScreenshots.map(async f=>({b64:await toBase64(f),analisi:null})));waConversazioni.push({id:uid(),tipo:waTipoCarica,cantiere,nome,messaggi:allMsgs,screenshots:screenshotsData,aiRisultato:null,dataCreazione:new Date().toISOString()});addActivity('🖼️',`Screenshot "${nome}" analizzati (${allMsgs.length} msg)`);saveAll();waUpdateKpi();waRenderArchivio();waPendingScreenshots=[];document.getElementById('wa-screenshots-preview').innerHTML='';btn.disabled=false;btn.innerHTML='🤖 Estrai messaggi con AI';document.getElementById('wa-success').style.display='block';setTimeout(()=>document.getElementById('wa-success').style.display='none',2500);toast(`✅ ${allMsgs.length} messaggi estratti`,'ok')}
+function waOpenDetail(id){waCurrentConv=waConversazioni.find(c=>c.id===id);if(!waCurrentConv)return;const c=CANTIERI.find(x=>x.id===waCurrentConv.cantiere);const overlay=document.getElementById('wa-detail-overlay');overlay.style.display='flex';document.getElementById('wa-detail-name').textContent=waCurrentConv.nome;const icon=waCurrentConv.tipo==='operai'?'👷':'🤝';const bg=waCurrentConv.tipo==='operai'?'rgba(37,211,102,0.15)':'rgba(96,165,250,0.12)';document.getElementById('wa-detail-avatar').style.background=bg;document.getElementById('wa-detail-avatar').textContent=icon;document.getElementById('wa-detail-meta').textContent=`${c?c.nome:'—'} · ${waCurrentConv.messaggi?.length||0} messaggi`;waDetailTab='msgs';waRenderDetailBody()}
+function waCloseDetail(){document.getElementById('wa-detail-overlay').style.display='none';waCurrentConv=null}
+function waShowTab(tab){waDetailTab=tab;['msgs','ai','screens'].forEach(t=>{const btn=document.getElementById('wa-dtab-'+t);if(btn)btn.className=t===tab?'bts bts-b':'bts'});waRenderDetailBody()}
+function waFilterDetail(){waRenderDetailBody((document.getElementById('wa-detail-search')?.value||'').toLowerCase())}
+function waRenderDetailBody(search=''){
+  const conv=waCurrentConv;if(!conv)return;const body=document.getElementById('wa-detail-body');
+  if(waDetailTab==='msgs'){
+    let msgs=conv.messaggi||[];if(search)msgs=msgs.filter(m=>(m.testo||'').toLowerCase().includes(search)||(m.mittente||'').toLowerCase().includes(search));
+    if(msgs.length===0){body.innerHTML='<div class="empty"><div class="ei">💬</div><div class="et">Nessun messaggio</div></div>';return}
+    const mittenti=[...new Set(msgs.map(m=>m.mittente).filter(Boolean))];const colori={};const pal=['#e85d2f','#60a5fa','#4ade80','#f5a623','#a78bfa','#f472b6'];mittenti.forEach((m,i)=>colori[m]=pal[i%pal.length]);
+    body.innerHTML=`<div class="wa-msg-list">${msgs.map(msg=>{const isMe=!msg.mittente||msg.mittente==='Io';const hl=search&&(msg.testo||'').toLowerCase().includes(search);const testo=hl?(msg.testo||'').replace(new RegExp(`(${search.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),'<mark style="background:#facc1540;color:var(--yellow)">$1</mark>'):msg.testo||'';return`<div class="wa-msg ${isMe?'outgoing':'incoming'} ${hl?'highlight':''}">${!isMe&&msg.mittente?`<div class="wa-msg-sender" style="color:${colori[msg.mittente]||'var(--accent2)'}">${msg.mittente}</div>`:''}<div class="wa-msg-text">${testo}</div>${msg.ts?`<div class="wa-msg-time">${msg.ts}</div>`:''}</div>`}).join('')}</div>`;
+    body.scrollTop=body.scrollHeight;
+  } else if(waDetailTab==='ai'){
+    if(!conv.aiRisultato){body.innerHTML=`<div style="text-align:center;padding:40px 20px"><div style="font-size:40px;margin-bottom:12px">🤖</div><div style="font-size:15px;font-weight:600;margin-bottom:8px">Analisi AI</div><div style="font-size:13px;color:var(--text3);margin-bottom:20px">Estrae impegni, date, decisioni e problemi dalla conversazione</div><button onclick="waAnalizzaAI()" style="padding:14px 24px;background:linear-gradient(135deg,var(--blue),#1d4ed8);border:none;border-radius:var(--rs);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans'">🤖 Analizza ora</button></div>`}
+    else{const r=conv.aiRisultato;body.innerHTML=`${r.sommario?`<div class="wa-ai-card"><div class="wa-ai-title">📋 Sommario</div><div style="font-size:14px;color:var(--text2);line-height:1.6">${r.sommario}</div></div>`:''} ${r.impegni?.length?`<div class="wa-ai-card"><div class="wa-ai-title">🔴 Impegni e Azioni</div>${r.impegni.map(i=>`<div class="wa-ai-item"><span class="wa-ai-badge badge-impegno">IMPEGNO</span>${i}</div>`).join('')}</div>`:''} ${r.decisioni?.length?`<div class="wa-ai-card"><div class="wa-ai-title">✅ Decisioni Prese</div>${r.decisioni.map(d=>`<div class="wa-ai-item"><span class="wa-ai-badge badge-decisione">DECISIONE</span>${d}</div>`).join('')}</div>`:''} ${r.date?.length?`<div class="wa-ai-card"><div class="wa-ai-title">📅 Date e Scadenze</div>${r.date.map(d=>`<div class="wa-ai-item"><span class="wa-ai-badge badge-data">DATA</span>${d}</div>`).join('')}</div>`:''} ${r.problemi?.length?`<div class="wa-ai-card"><div class="wa-ai-title">⚠️ Problemi Segnalati</div>${r.problemi.map(p=>`<div class="wa-ai-item"><span class="wa-ai-badge badge-problema">PROBLEMA</span>${p}</div>`).join('')}</div>`:''}<button onclick="waAnalizzaAI()" style="width:100%;padding:12px;background:transparent;border:1px solid var(--border);border-radius:var(--rs);color:var(--text3);font-size:13px;cursor:pointer;font-family:'DM Sans';margin-top:4px">🔄 Ranalizza</button>`}
+  } else if(waDetailTab==='screens'){
+    const scr=conv.screenshots||[];if(scr.length===0){body.innerHTML='<div class="empty"><div class="ei">🖼️</div><div class="et">Nessuno screenshot</div></div>';return}
+    body.innerHTML=`<div class="wa-screenshot-grid">${scr.map((s,i)=>`<div class="wa-screenshot-item" onclick="waOpenScreen(${i})"><img src="${s.b64}" alt=""><div class="wa-screenshot-overlay">#${i+1}</div></div>`).join('')}</div>`}
+}
+async function waAnalizzaAI(){const conv=waCurrentConv;if(!conv)return;const btn=document.querySelector('#wa-detail-overlay .phdr button:last-child');if(btn){btn.disabled=true;btn.innerHTML='<span class="spin">⏳</span>'}
+const testo=conv.messaggi?.map(m=>`[${m.ts||''}] ${m.mittente||'Io'}: ${m.testo}`).join('\n').slice(0,6000)||'(nessun messaggio)';
+try{const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:`Analizza questa chat WhatsApp di un'impresa edile. CHAT:\n${testo}\n\nRispondi SOLO JSON: {"sommario":"...","impegni":["..."],"decisioni":["..."],"date":["..."],"problemi":["..."]}`}]})});const data=await r.json();const text=data.content?.filter(b=>b.type==='text').map(b=>b.text).join('')||'';conv.aiRisultato=JSON.parse(text.replace(/```json|```/g,'').trim());saveAll();addActivity('🤖',`Chat "${conv.nome}" analizzata`);toast('✅ Analisi completata','ok')}catch(e){toast('❌ Errore analisi')}
+if(btn){btn.disabled=false;btn.innerHTML='🤖 Analizza'}waDetailTab='ai';waRenderDetailBody()}
+function waOpenScreen(idx){const conv=waCurrentConv;if(!conv)return;const s=conv.screenshots?.[idx];if(!s)return;document.getElementById('lb-img').src=s.b64;document.getElementById('lb-title').textContent=`${conv.nome} — Screenshot #${idx+1}`;document.getElementById('lb-counter').textContent=`${idx+1}/${conv.screenshots.length}`;document.getElementById('lb-info').innerHTML=`<div class="lb-row"><span>💬</span><span>${conv.nome}</span></div><div style="margin-top:8px"><button onclick="closeLB()" style="width:100%;padding:10px;background:var(--bg4);border:none;border-radius:8px;color:var(--text3);font-size:13px;cursor:pointer">Chiudi</button></div>`;document.getElementById('lightbox').classList.add('open')}
+function waRicerca(){const q=(document.getElementById('wa-search-input')?.value||'').toLowerCase().trim();const res=document.getElementById('wa-search-results');if(!q){res.innerHTML='<div class="empty"><div class="ei">🔍</div><div class="et">Inizia a digitare</div></div>';return}const hits=[];waConversazioni.forEach(conv=>(conv.messaggi||[]).forEach(msg=>{if((msg.testo||'').toLowerCase().includes(q)||(msg.mittente||'').toLowerCase().includes(q))hits.push({conv,msg})}));if(hits.length===0){res.innerHTML='<div class="empty"><div class="ei">🔍</div><div class="et">Nessun risultato</div></div>';return}const hl=t=>(t||'').replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),'<mark style="background:#facc1540;color:var(--yellow)">$1</mark>');res.innerHTML=`<div style="font-size:12px;color:var(--text3);margin-bottom:10px">${hits.length} risultati</div>`+hits.slice(0,40).map(({conv,msg})=>{const c=CANTIERI.find(x=>x.id===conv.cantiere);return`<div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:12px 14px;margin-bottom:8px;cursor:pointer" onclick="waOpenDetail('${conv.id}')"><div style="display:flex;align-items:center;gap:8px;margin-bottom:5px"><span style="font-size:13px;font-weight:600">${conv.nome}</span>${c?`<span style="font-size:11px;color:${c.colore};font-weight:600">${c.nome}</span>`:''} ${msg.ts?`<span style="font-size:10px;color:var(--text4);font-family:'DM Mono';margin-left:auto">${msg.ts}</span>`:''}</div>${msg.mittente?`<div style="font-size:11px;color:var(--accent2);font-weight:600;margin-bottom:3px">${msg.mittente}</div>`:''}<div style="font-size:13px;color:var(--text2);line-height:1.5">${hl((msg.testo||'').slice(0,120))}${(msg.testo||'').length>120?'…':''}</div></div>`}).join('')}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// DRIVE SYNC
+// ══════════════════════════════════════════════════════════════════════════════
+const DRIVE_FILE_NAME = 'RIKOSTRUZIONI_dati.json';
+let driveFileId = null;
+let syncInProgress = false;
+let lastSyncTime = null;
+
+function syncStatus(stato, msg) {
+  const bar = document.getElementById('sync-bar');
+  const label = document.getElementById('sync-label');
+  if(!bar || !label) return;
+  bar.className = 'sync-bar ' + stato; // sync-ok / sync-warn / sync-err
+  label.textContent = msg;
+}
+
+function getDataSnapshot() {
+  // Esclude foto e screenshot per non sforare i 5MB di Drive (sono base64 pesanti)
+  // Le foto rimangono su localStorage locale — solo i metadati vanno su Drive
+  return {
+    voci, budgets, materiali, fasiCustom,
+    fotoMeta: fotoList.map(f => ({...f, thumbnail: null})), // metadati senza immagine
+    activity, operai, presenze,
+    waConversazioni: waConversazioni.map(c => ({
+      ...c,
+      screenshots: c.screenshots?.map(s => ({...s, b64: null})) // senza immagini
+    })),
+    _version: 2,
+    _lastSave: new Date().toISOString(),
+    _device: navigator.userAgent.slice(0, 60)
+  };
+}
+
+function applySnapshot(data) {
+  if(!data) return;
+  if(data.voci) voci = data.voci;
+  if(data.budgets) { CANTIERI.forEach(c=>{ if(!(c.id in data.budgets)) data.budgets[c.id]=0; }); budgets = data.budgets; }
+  if(data.materiali) materiali = data.materiali;
+  if(data.fasiCustom) fasiCustom = data.fasiCustom;
+  if(data.activity) activity = data.activity;
+  if(data.operai) operai = data.operai;
+  if(data.presenze) presenze = data.presenze;
+  if(data.waConversazioni) {
+    // Merge: mantieni screenshots locali se esistono
+    waConversazioni = data.waConversazioni.map(remoto => {
+      const locale = waConversazioni.find(c => c.id === remoto.id);
+      return {
+        ...remoto,
+        screenshots: locale?.screenshots?.length ? locale.screenshots : (remoto.screenshots || [])
+      };
+    });
+  }
+  // Aggiorna localStorage locale
+  saveAll();
+}
+
+async function callDriveForSync(prompt) {
+  try {
+    const r = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514', max_tokens: 500,
+        mcp_servers: [{ type: 'url', url: 'https://drivemcp.googleapis.com/mcp/v1', name: 'gdrive' }],
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await r.json();
+    return data.content?.filter(b => b.type === 'text').map(b => b.text).join('') || '';
+  } catch(e) { return ''; }
+}
+
+async function driveFindFile() {
+  const r = await callDriveForSync(`Use Google Drive MCP to search for a file named "${DRIVE_FILE_NAME}". Return ONLY the file ID if found, or "NOT_FOUND" if not found.`);
+  if(r.includes('NOT_FOUND') || !r.match(/[a-zA-Z0-9_-]{25,}/)) return null;
+  return r.match(/[a-zA-Z0-9_-]{25,}/)?.[0] || null;
+}
+
+async function driveReadFile(fileId) {
+  const r = await callDriveForSync(`Use Google Drive MCP to read the content of file ID "${fileId}". Return the raw file content.`);
+  try {
+    const jsonMatch = r.match(/\{[\s\S]*\}/);
+    return jsonMatch ? JSON.parse(jsonMatch[0]) : null;
+  } catch(e) { return null; }
+}
+
+async function driveWriteFile(data) {
+  const json = JSON.stringify(data);
+  if(driveFileId) {
+    await callDriveForSync(`Use Google Drive MCP to update file ID "${driveFileId}" with this JSON content: ${json.slice(0,3000)}... (truncated for display, full data follows). The file should contain valid JSON data for RIKOSTRUZIONI SRL app.`);
+  } else {
+    const r = await callDriveForSync(`Use Google Drive MCP to create a new file named "${DRIVE_FILE_NAME}" in the root folder with content type "application/json" and title "${DRIVE_FILE_NAME}". Return only the new file ID.`);
+    driveFileId = r.match(/[a-zA-Z0-9_-]{25,}/)?.[0] || null;
+  }
+}
+
+async function driveSync(forceUpload = false) {
+  if(syncInProgress) return;
+  syncInProgress = true;
+  syncStatus('sync-warn', '↻ Sincronizzazione con Drive…');
+
+  try {
+    // 1. Trova il file su Drive
+    if(!driveFileId) driveFileId = await driveFindFile();
+
+    if(driveFileId && !forceUpload) {
+      // 2. Leggi i dati remoti
+      const remoto = await driveReadFile(driveFileId);
+      if(remoto && remoto._lastSave) {
+        const remotoTime = new Date(remoto._lastSave);
+        const localeTime = lastSyncTime ? new Date(lastSyncTime) : new Date(0);
+        if(remotoTime > localeTime) {
+          // Dati remoti più recenti → scarica
+          applySnapshot(remoto);
+          lastSyncTime = remoto._lastSave;
+          localStorage.setItem('rk_lastSync', lastSyncTime);
+          refreshAllUI();
+          syncStatus('sync-ok', `✓ Sincronizzato — ${new Date(remoto._lastSave).toLocaleTimeString('it-IT')} · ${remoto._device?.split(' ')[0]||'altro dispositivo'}`);
+          syncInProgress = false;
+          return;
+        }
+      }
+    }
+
+    // 3. Carica dati locali su Drive
+    const snapshot = getDataSnapshot();
+    await driveWriteFile(snapshot);
+    lastSyncTime = snapshot._lastSave;
+    localStorage.setItem('rk_lastSync', lastSyncTime);
+    syncStatus('sync-ok', `✓ Salvato su Drive — ${new Date().toLocaleTimeString('it-IT')}`);
+
+  } catch(e) {
+    syncStatus('sync-err', '✗ Errore sincronizzazione — riprova');
+    console.error('Sync error:', e);
+  }
+  syncInProgress = false;
+}
+
+function refreshAllUI() {
+  spUpdateKpi(); matUpdateKpi(); fotoUpdateKpi(); prUpdateKpi(); waUpdateKpi();
+  aggiornaMatAlert(); renderHome();
+}
+
+// Auto-sync ogni 3 minuti
+setInterval(() => driveSync(), 3 * 60 * 1000);
+
+// Sync su saveAll (debounced)
+let syncTimer = null;
+const originalSaveAll = saveAll;
+function saveAll() {
+  try {
+    localStorage.setItem('rk_voci', JSON.stringify(voci));
+    localStorage.setItem('rk_budgets', JSON.stringify(budgets));
+    localStorage.setItem('rk_mat', JSON.stringify(materiali));
+    localStorage.setItem('rk_fasi', JSON.stringify(fasiCustom));
+    localStorage.setItem('rk_foto', JSON.stringify(fotoList));
+    localStorage.setItem('rk_activity', JSON.stringify(activity));
+    localStorage.setItem('rk_operai', JSON.stringify(operai));
+    localStorage.setItem('rk_presenze', JSON.stringify(presenze));
+    localStorage.setItem('rk_wa', JSON.stringify(waConversazioni));
+  } catch(e) {}
+  // Debounce: sync su Drive 8 secondi dopo l'ultima modifica
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(() => driveSync(true), 8000);
+  syncStatus('sync-warn', '● Modifiche non sincronizzate…');
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// PWA — INSTALLAZIONE
+// ══════════════════════════════════════════════════════════════════════════════
+let pwaPrompt = null;
+
+// Intercetta l'evento di installazione (Chrome/Android/Edge)
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  pwaPrompt = e;
+  const dismissed = localStorage.getItem('pwa_dismissed');
+  if(!dismissed) {
+    setTimeout(() => { document.getElementById('pwa-banner').style.display = 'block'; }, 3000);
+  }
+});
+
+function pwaInstall() {
+  document.getElementById('pwa-banner').style.display = 'none';
+  if(pwaPrompt) {
+    pwaPrompt.prompt();
+    pwaPrompt.userChoice.then(r => {
+      if(r.outcome === 'accepted') toast('✅ App installata!', 'ok');
+      pwaPrompt = null;
+    });
+  } else {
+    // iOS/Safari: mostra istruzioni manuali
+    showPwaInstructions();
+  }
+}
+
+function pwaDismiss() {
+  document.getElementById('pwa-banner').style.display = 'none';
+  localStorage.setItem('pwa_dismissed', '1');
+}
+
+function showPwaInstructions() {
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isMac = /macintosh/i.test(navigator.userAgent);
+  let html = '';
+  if(isIOS) {
+    html = `<b>iPhone / iPad:</b><br>1. Tocca il pulsante Condividi (□↑) in Safari<br>2. Scorri e tocca <b>"Aggiungi a schermata Home"</b><br>3. Tocca <b>Aggiungi</b>`;
+  } else if(isMac) {
+    html = `<b>Mac - Safari:</b><br>Menu File → <b>Aggiungi alla Dock</b><br><br><b>Mac - Chrome:</b><br>Icona ⊕ nella barra indirizzi → <b>Installa</b>`;
+  } else {
+    html = `<b>Windows - Chrome/Edge:</b><br>Icona ⊕ nella barra indirizzi → <b>Installa RIKOSTRUZIONI</b>`;
+  }
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:500;display:flex;align-items:flex-end;justify-content:center';
+  overlay.innerHTML = `<div style="background:var(--bg2);border-radius:20px 20px 0 0;padding:24px 20px;width:100%;max-width:500px">
+    <div style="font-size:17px;font-weight:700;margin-bottom:16px">📲 Come installare l'app</div>
+    <div style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:20px">${html}</div>
+    <button onclick="this.closest('div[style*=fixed]').remove()" style="width:100%;padding:14px;background:var(--accent);border:none;border-radius:var(--rs);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans'">Capito ✓</button>
+  </div>`;
+  document.body.appendChild(overlay);
+}
+
+// Rilevamento installazione avvenuta
+window.addEventListener('appinstalled', () => toast('🎉 App installata con successo!', 'ok'));
+
+// ── SERVICE WORKER (cache offline) ──
+if('serviceWorker' in navigator) {
+  const swCode = `
+const CACHE = 'riko-v1';
+const URLS = [self.registration.scope];
+self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll(URLS))));
+self.addEventListener('fetch', e => {
+  if(e.request.url.includes('api.anthropic.com') || e.request.url.includes('googleapis.com')) return;
+  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).catch(() => caches.match(e.request))));
+});`;
+  const blob = new Blob([swCode], {type: 'application/javascript'});
+  const swUrl = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(() => {});
+}
+
+loadAll();
+lastSyncTime = localStorage.getItem('rk_lastSync');
+spUpdateKpi();
+matUpdateKpi();
+fotoUpdateKpi();
+prUpdateKpi();
+waUpdateKpi();
+aggiornaMatAlert();
+renderHome();
+document.getElementById('pr-export-anno').value = new Date().getFullYear();
+document.getElementById('pr-export-mese').value = String(new Date().getMonth()+1).padStart(2,'0');
+document.getElementById('home-date').textContent = new Date().toLocaleDateString('it-IT',{weekday:'long',day:'numeric',month:'long'});
+
+// Avvia sync Drive all'avvio (dopo 2s per non bloccare il rendering)
+setTimeout(() => driveSync(), 2000);
+
+// Swipe lightbox
+let lbTX=0;
+document.getElementById('lightbox').addEventListener('touchstart',e=>lbTX=e.touches[0].clientX);
+document.getElementById('lightbox').addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-lbTX;if(Math.abs(dx)>50)lbNav(dx<0?1:-1)});
+</script>
+</body>
+</html>
